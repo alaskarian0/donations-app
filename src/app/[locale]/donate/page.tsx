@@ -187,8 +187,10 @@ function DonateContent() {
                 const val = e.target.value.replace(/[^\d]/g, "");
                 dispatch({ type: "SET_CUSTOM_AMOUNT", payload: val });
               }}
-              className="w-full rounded-xl border border-gold/10 bg-gray-50 px-10 py-6 text-2xl text-gray-900 focus:border-gold focus:outline-none focus:ring-8 focus:ring-gold/5 transition-all placeholder:text-gray-500 shadow-inner"
-              dir="ltr"
+              className={cn(
+                "w-full rounded-xl border border-gold/10 bg-gray-50 px-10 py-6 text-2xl text-gray-900 focus:border-gold focus:outline-none focus:ring-8 focus:ring-gold/5 transition-all placeholder:text-gray-500 shadow-inner",
+                locale === "ar" ? "text-right" : "text-left"
+              )}
             />
             <span className={cn(
               "absolute top-1/2 -translate-y-1/2 text-gold font-bold tracking-widest text-lg",

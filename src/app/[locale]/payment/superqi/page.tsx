@@ -9,6 +9,8 @@ import { formatCurrency, formatCardNumber, formatExpiry } from "@/lib/utils";
 import { createDonation } from "@/lib/api";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
+import PaymentStepper from "@/components/payment/PaymentStepper";
+import ProcessingOverlay from "@/components/payment/ProcessingOverlay";
 import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
 
@@ -213,10 +215,13 @@ export default function SuperQiPage() {
                   </label>
                   <input
                     type="text"
-                    placeholder="الاسم كما يظهر على البطاقة"
+                    placeholder={locale === 'ar' ? "الاسم كما يظهر على البطاقة" : "Name as it appears on card"}
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-base focus:border-gold focus:bg-white focus:outline-none focus:ring-2 focus:ring-gold/20 transition-all"
+                    className={cn(
+                      "w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-base focus:border-gold focus:bg-white focus:outline-none focus:ring-2 focus:ring-gold/20 transition-all",
+                      locale === 'ar' ? 'text-right' : 'text-left'
+                    )}
                   />
                   {errors.name && (
                     <p className="mt-1 text-sm text-red-500">{errors.name}</p>
