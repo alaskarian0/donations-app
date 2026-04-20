@@ -60,7 +60,7 @@ export default function HeroSection() {
               transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
               className="absolute -inset-10 bg-gold/10 rounded-full blur-3xl"
             />
-            <div className="w-[7rem] h-[7rem] sm:w-[8.5rem] sm:h-[8.5rem] mx-auto relative rounded-full flex items-center justify-center p-7 border border-gold/10 backdrop-blur-md">
+            <div className="w-[7rem] h-[7rem] sm:w-[8.5rem] sm:h-[8.5rem] mx-auto relative rounded-2xl flex items-center justify-center p-7 border border-gold/10 backdrop-blur-md">
               <Image
                 src="/image.png"
                 alt={SITE_NAME}

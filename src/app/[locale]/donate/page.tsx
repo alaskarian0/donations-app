@@ -96,7 +96,7 @@ function DonateContent() {
                     selected={isSelected}
                     hoverable
                     className={cn(
-                      "group h-full p-10 transition-all duration-700 relative overflow-hidden flex flex-col items-center text-center rounded-[3rem] border shadow-xl",
+                      "group h-full p-10 transition-all duration-700 relative overflow-hidden flex flex-col items-center text-center rounded-2xl border shadow-xl",
                       isSelected 
                         ? "bg-gold/5 border-gold/40 shadow-gold-glow/10" 
                         : "bg-white border-gold/10 hover:border-gold/30 hover:shadow-2xl"
@@ -161,7 +161,7 @@ function DonateContent() {
                   dispatch({ type: "SET_AMOUNT", payload: amount })
                 }
                 className={cn(
-                  "py-5 px-2 rounded-[1.5rem] border transition-all duration-700 cursor-pointer font-bold",
+                  "py-5 px-2 rounded-xl border transition-all duration-700 cursor-pointer font-bold",
                   state.amount === amount && !state.customAmount
                     ? "border-gold bg-gold text-shrine-blue-dark shadow-gold-glow scale-105"
                     : "border-gold/10 bg-white text-gray-500 hover:border-gold/30 hover:text-gold shadow-md hover:shadow-xl"
@@ -187,7 +187,7 @@ function DonateContent() {
                 const val = e.target.value.replace(/[^\d]/g, "");
                 dispatch({ type: "SET_CUSTOM_AMOUNT", payload: val });
               }}
-              className="w-full rounded-[2rem] border border-gold/10 bg-gray-50 px-10 py-6 text-2xl text-gray-900 focus:border-gold focus:outline-none focus:ring-8 focus:ring-gold/5 transition-all font-inter placeholder:text-gray-400 shadow-inner"
+              className="w-full rounded-xl border border-gold/10 bg-gray-50 px-10 py-6 text-2xl text-gray-900 focus:border-gold focus:outline-none focus:ring-8 focus:ring-gold/5 transition-all font-inter placeholder:text-gray-400 shadow-inner"
               dir="ltr"
             />
             <span className={cn(
@@ -222,7 +222,7 @@ function DonateContent() {
                 selected={state.paymentMethod === method.id}
                 hoverable
                 className={cn(
-                  "p-10 transition-all duration-700 rounded-[3rem] border",
+                  "p-10 transition-all duration-700 rounded-2xl border",
                   state.paymentMethod === method.id 
                     ? "bg-gold/5 border-gold/40 shadow-gold-glow/10" 
                     : "bg-white border-gold/10 hover:shadow-2xl"

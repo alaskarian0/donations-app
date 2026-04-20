@@ -112,7 +112,7 @@ export default function DonationCategories() {
                     <Card 
                       hoverable 
                       style={{ padding: "var(--spacing-fib-3)" }}
-                      className="h-full bg-white/40 backdrop-blur-md border border-gold/10 flex flex-col justify-between overflow-hidden relative group-hover:border-gold/40 transition-all duration-700 shadow-xl hover:shadow-gold-glow/10 rounded-[2.5rem]"
+                      className="h-full bg-white/40 backdrop-blur-md border border-gold/10 flex flex-col justify-between overflow-hidden relative group-hover:border-gold/40 transition-all duration-700 shadow-xl hover:shadow-gold-glow/10 rounded-2xl"
                     >
                       {/* Interactive Illuminator */}
                       <div 

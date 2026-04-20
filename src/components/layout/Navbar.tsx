@@ -108,7 +108,7 @@ export default function Navbar() {
               <motion.button
                 onClick={toggleLocale}
                 style={{ borderColor: useTransform(scrollY, [0, 80], ["rgba(212, 175, 55, 0.2)", "rgba(212, 175, 55, 0.1)"]) }}
-                className="hover:text-gold text-[0.65rem] font-black tracking-[0.3em] uppercase transition-all px-4 py-1.5 border rounded-full hover:border-gold/40"
+                className="hover:text-gold text-[0.65rem] font-black tracking-[0.3em] uppercase transition-all px-4 py-1.5 border rounded-xl hover:border-gold/40"
               >
                 {locale === "ar" ? "English" : "العربية"}
               </motion.button>
@@ -122,7 +122,7 @@ export default function Navbar() {
 
             {/* Mobile Trigger */}
             <div className="flex items-center gap-6 md:hidden">
-              <button onClick={toggleLocale} className="text-[0.65rem] text-gold border border-gold/20 px-4 py-1 rounded-full font-black tracking-widest">
+              <button onClick={toggleLocale} className="text-[0.65rem] text-gold border border-gold/20 px-4 py-1 rounded-xl font-black tracking-widest">
                 {locale === "ar" ? "EN" : "AR"}
               </button>
               <button onClick={() => setMobileOpen(true)} className="text-gold/80 hover:text-gold transition-colors">

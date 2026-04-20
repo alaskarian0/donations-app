@@ -44,9 +44,9 @@ export default function AboutPreview() {
               <motion.div 
                 animate={{ scale: [1, 1.02, 1], opacity: [0.05, 0.1, 0.05] }}
                 transition={{ duration: 8, repeat: Infinity }}
-                className="absolute -inset-10 bg-gold/5 rounded-[3rem] blur-3xl group-hover:bg-gold/10 transition-all duration-700" 
+                className="absolute -inset-10 bg-gold/5 rounded-2xl blur-3xl group-hover:bg-gold/10 transition-all duration-700" 
               />
-              <div className="relative aspect-video rounded-[3rem] overflow-hidden shadow-2xl border border-gold/10">
+              <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl border border-gold/10">
                   <Image 
                     src="/about-shrine.png" 
                     alt="Al-Askari Holy Shrine" 

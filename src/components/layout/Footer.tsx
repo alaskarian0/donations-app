@@ -49,7 +49,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-[var(--spacing-fib-2)] mb-[var(--spacing-fib-5)]">
 
           {/* Section 1: Logo & Mission (Sanctuary Bento) */}
-          <div className="p-[var(--spacing-fib-3)] rounded-[3rem] glass-sanctuary flex flex-col justify-between overflow-hidden relative shadow-cloud min-h-[24rem]">
+          <div className="p-[var(--spacing-fib-3)] rounded-2xl glass-sanctuary flex flex-col justify-between overflow-hidden relative shadow-cloud min-h-[24rem]">
             <div className="absolute inset-0 geometry-heartbeat geometric-bg opacity-[0.03] pointer-events-none" />
 
             <div className="relative z-10 text-start">
@@ -93,7 +93,7 @@ export default function Footer() {
           </div>
 
           {/* Section 2: Navigation (Sanctuary Bento) */}
-          <div className="p-[var(--spacing-fib-3)] rounded-[3rem] glass-sanctuary flex flex-col overflow-hidden relative shadow-cloud min-h-[24rem]">
+          <div className="p-[var(--spacing-fib-3)] rounded-2xl glass-sanctuary flex flex-col overflow-hidden relative shadow-cloud min-h-[24rem]">
             <div className="absolute inset-0 geometry-heartbeat geometric-bg opacity-[0.03] pointer-events-none" />
 
             <h3 className="text-gold font-bold mb-12 text-[1.125rem] tracking-[0.2em] uppercase gold-shimmer relative z-10">
@@ -120,7 +120,7 @@ export default function Footer() {
           </div>
 
           {/* Section 3: Contact & Serenity (Sanctuary Bento) */}
-          <div className="p-[var(--spacing-fib-3)] rounded-[3rem] glass-sanctuary relative overflow-hidden shadow-cloud flex flex-col justify-between group min-h-[24rem]">
+          <div className="p-[var(--spacing-fib-3)] rounded-2xl glass-sanctuary relative overflow-hidden shadow-cloud flex flex-col justify-between group min-h-[24rem]">
             <div className="absolute inset-0 geometry-heartbeat geometric-bg opacity-[0.03] pointer-events-none" />
 
             <div className="relative z-10 text-start">
@@ -148,7 +148,7 @@ export default function Footer() {
               <button
                 onClick={() => setSerenity(!serenity)}
                 className={cn(
-                  "flex items-center gap-4 px-6 py-3 rounded-full transition-all duration-1000 border group/btn",
+                  "flex items-center gap-4 px-6 py-3 rounded-xl transition-all duration-1000 border group/btn",
                   serenity
                     ? "bg-gold text-shrine-blue-dark border-gold shadow-gold-glow"
                     : "bg-transparent text-gold/60 border-gold/20 hover:border-gold hover:text-gold"

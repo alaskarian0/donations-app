@@ -62,7 +62,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
                 href={link.href}
                 onClick={onClose}
                 className={cn(
-                  "block px-6 py-4 rounded-2xl text-sm font-bold uppercase tracking-[0.2em] transition-all duration-500",
+                  "block px-6 py-4 rounded-xl text-sm font-bold uppercase tracking-[0.2em] transition-all duration-500",
                   pathname === link.href
                     ? "bg-gold/10 text-gold shadow-gold-glow/5"
                     : "text-gray-400 hover:bg-gold/5 hover:text-gold"
