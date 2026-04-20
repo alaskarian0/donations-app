@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useDonation } from "@/context/DonationContext";
 import { DONATION_TYPES } from "@/lib/constants";
-import { formatCurrency, formatCardNumber, formatExpiry } from "@/lib/utils";
+import { cn, formatCurrency, formatCardNumber, formatExpiry } from "@/lib/utils";
 import { createDonation } from "@/lib/api";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
