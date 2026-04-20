@@ -29,6 +29,7 @@ const ContactIcons = {
 
 export default function Footer() {
   const t = useTranslations("Nav");
+  const tc = useTranslations("Common");
   const locale = useLocale();
   const [serenity, setSerenity] = useState(false);
 
@@ -61,7 +62,7 @@ export default function Footer() {
                   height={64}
                   className="object-contain logo-gold-filter drop-shadow-md"
                 />
-                <span className="text-[1.5rem] font-bold gold-shimmer tracking-widest uppercase">{SITE_NAME}</span>
+                <span className="text-[1.5rem] font-bold gold-shimmer uppercase">{tc("site_name")}</span>
               </div>
               <p className="text-gray-400 text-base leading-[1.8] mb-12 font-light tracking-wide italic">
                 {locale === "ar"
@@ -96,23 +97,23 @@ export default function Footer() {
           <div className="p-[var(--spacing-fib-3)] rounded-2xl glass-sanctuary flex flex-col overflow-hidden relative shadow-cloud min-h-[24rem]">
             <div className="absolute inset-0 geometry-heartbeat geometric-bg opacity-[0.03] pointer-events-none" />
 
-            <h3 className="text-gold font-bold mb-12 text-[1.125rem] tracking-[0.2em] uppercase gold-shimmer relative z-10">
+            <h3 className="text-gold font-bold mb-12 text-[1.125rem] uppercase gold-shimmer relative z-10">
               {locale === "ar" ? "روابط سريعة" : "Quick Links"}
             </h3>
 
             <ul className="space-y-8 relative z-10">
               <li>
-                <Link href="/" className="text-gray-300 hover:text-gold transition-all duration-700 text-sm font-black tracking-widest uppercase block border-b border-gold/5 pb-4">
+                <Link href="/" className="text-gray-300 hover:text-gold transition-all duration-700 text-sm font-bold uppercase block border-b border-gold/5 pb-4">
                   {t("home")}
                 </Link>
               </li>
               <li>
-                <Link href="/donate" className="text-gray-300 hover:text-gold transition-all duration-700 text-sm font-black tracking-widest uppercase block border-b border-gold/5 pb-4">
+                <Link href="/donate" className="text-gray-300 hover:text-gold transition-all duration-700 text-sm font-bold uppercase block border-b border-gold/5 pb-4">
                   {t("donate")}
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-gray-300 hover:text-gold transition-all duration-700 text-sm font-black tracking-widest uppercase block">
+                <Link href="/about" className="text-gray-300 hover:text-gold transition-all duration-700 text-sm font-bold uppercase block">
                   {t("about")}
                 </Link>
               </li>
@@ -124,19 +125,19 @@ export default function Footer() {
             <div className="absolute inset-0 geometry-heartbeat geometric-bg opacity-[0.03] pointer-events-none" />
 
             <div className="relative z-10 text-start">
-              <h3 className="text-gold font-bold mb-10 text-[1.125rem] tracking-[0.2em] uppercase gold-shimmer">
+              <h3 className="text-gold font-bold mb-10 text-[1.125rem] uppercase gold-shimmer">
                 {locale === "ar" ? "تواصل معنا" : "Contact Us"}
               </h3>
               <ul className="space-y-8">
                 <li className="flex items-start gap-6">
                   <div className="shrink-0 mt-1 opacity-70 group-hover:opacity-100 transition-opacity duration-700">{ContactIcons.address}</div>
-                  <span className="text-gray-300 text-sm leading-[1.8] font-light tracking-wide italic">
+                  <span className="text-gray-300 text-sm leading-[1.8] font-light italic">
                     {locale === "ar" ? "العراق، سامراء، العتبة العسكرية المقدسة" : "Iraq, Samarra, Al-Askari Holy Shrine"}
                   </span>
                 </li>
                 <li className="flex items-center gap-6">
                   <div className="shrink-0 opacity-70 group-hover:opacity-100 transition-opacity duration-700">{ContactIcons.web}</div>
-                  <a href="https://alaskarian.net" target="_blank" className="text-gray-300 hover:text-gold transition-all duration-700 text-sm font-black tracking-widest uppercase">
+                  <a href="https://alaskarian.net" target="_blank" className="text-gray-300 hover:text-gold transition-all duration-700 text-sm font-bold uppercase">
                     alaskarian.net
                   </a>
                 </li>
@@ -155,7 +156,7 @@ export default function Footer() {
                 )}
               >
                 <div className={cn("w-3 h-3 rounded-full transition-all duration-1000", serenity ? "bg-shrine-blue-dark scale-125" : "bg-gold-dark scale-100 group-hover/btn:scale-110")} />
-                <span className="text-[0.65rem] font-black uppercase tracking-[0.3em] leading-none">
+                <span className="text-[0.7rem] font-bold uppercase leading-none">
                   {serenity
                     ? (locale === "ar" ? "وضع السكينة: مفعل" : "Serenity Mode: ON")
                     : (locale === "ar" ? "تفعيل وضع السكينة" : "Enter Serenity Mode")}
@@ -175,16 +176,16 @@ export default function Footer() {
 
         {/* Copyright & Sanctuary Footer Links */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-          <p className="text-gray-500 text-xs text-center md:text-right font-extralight tracking-widest uppercase">
+          <p className="text-gray-500 text-xs text-center md:text-right font-extralight uppercase">
             {locale === "ar"
               ? `جميع الحقوق محفوظة © ${new Date().getFullYear()} العتبة العسكرية المقدسة`
               : `All rights reserved © ${new Date().getFullYear()} Al-Askari Holy Shrine`}
           </p>
           <div className="flex gap-12">
-            <span className="text-gray-600 text-[0.65rem] hover:text-gold cursor-pointer transition-all duration-700 uppercase tracking-[0.34em] font-black italic">
+            <span className="text-gray-600 text-[0.7rem] hover:text-gold cursor-pointer transition-all duration-700 uppercase font-bold italic">
               {locale === "ar" ? "سياسة الخصوصية" : "Privacy Policy"}
             </span>
-            <span className="text-gray-600 text-[0.65rem] hover:text-gold cursor-pointer transition-all duration-700 uppercase tracking-[0.34em] font-black italic">
+            <span className="text-gray-600 text-[0.7rem] hover:text-gold cursor-pointer transition-all duration-700 uppercase font-bold italic">
               {locale === "ar" ? "شروط الخدمة" : "Terms of Service"}
             </span>
           </div>

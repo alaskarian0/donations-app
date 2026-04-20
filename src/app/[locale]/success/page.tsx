@@ -6,14 +6,18 @@ import { motion } from "framer-motion";
 import { useDonation } from "@/context/DonationContext";
 import { DONATION_TYPES, PAYMENT_METHODS } from "@/lib/constants";
 import { formatCurrency } from "@/lib/utils";
+import { getDonationByPaymentId } from "@/lib/api";
+import type { DonationState } from "@/lib/types";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import { useTranslations, useLocale } from "next-intl";
+import Image from "next/image";
 
 export default function SuccessPage() {
   const router = useRouter();
-  const { state, dispatch } = useDonation();
   const locale = useLocale();
+  const tc = useTranslations("Common");
+  const { state, dispatch } = useDonation();
   const t = useTranslations("DonationTypes");
   
   const [timestamp] = useState(() =>
@@ -25,6 +29,8 @@ export default function SuccessPage() {
       minute: "2-digit",
     })
   );
+  const [backendStatus, setBackendStatus] = useState<string | null>(null);
+  const [verifying, setVerifying] = useState(false);
 
   const donationType = DONATION_TYPES.find((t) => t.id === state.donationType);
   const paymentMethod = PAYMENT_METHODS.find((m) => m.id === state.paymentMethod);
@@ -45,6 +51,21 @@ export default function SuccessPage() {
       router.push("/donate");
     }
   }, [state.donationType, state.amount, router]);
+
+  // Verify donation with backend
+  useEffect(() => {
+    if (!state.paymentId) return;
+    setVerifying(true);
+    getDonationByPaymentId(state.paymentId)
+      .then((data) => {
+        setBackendStatus(data.status);
+        dispatch({ type: "SET_STATUS", payload: data.status.toLowerCase() as DonationState["status"] });
+      })
+      .catch(() => {
+        // Graceful fallback — still show success with local data
+      })
+      .finally(() => setVerifying(false));
+  }, [state.paymentId, dispatch]);
 
   if (!state.donationType || !state.amount) {
     return null;
@@ -120,16 +141,39 @@ export default function SuccessPage() {
               </div>
 
               <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                <span className="text-gray-500 text-sm">{locale === "ar" ? "نوع التبرع" : "Donation Type"}</span>
-                <span className="font-medium text-shrine-blue-dark">
-                  {donationType?.icon} {t(`${state.donationType}`)}
+                <span className="text-gray-500 text-sm">{locale === "ar" ? "حالة المعاملة" : "Transaction Status"}</span>
+                <span className={`text-sm font-bold ${backendStatus === 'SUCCESS' ? 'text-shrine-green' : backendStatus === 'FAILED' ? 'text-red-500' : 'text-amber-500'}`}>
+                  {verifying
+                    ? (locale === "ar" ? "جاري التحقق..." : "Verifying...")
+                    : backendStatus === 'SUCCESS'
+                      ? (locale === "ar" ? "مؤكدة" : "Confirmed")
+                      : backendStatus === 'FAILED'
+                        ? (locale === "ar" ? "فشلت" : "Failed")
+                        : (locale === "ar" ? "قيد المعالجة" : "Processing")}
                 </span>
+              </div>
+
+              <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                <span className="text-gray-500 text-sm">{locale === "ar" ? "نوع التبرع" : "Donation Type"}</span>
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 relative">
+                    <Image
+                      src={donationType ? `/icons/${donationType.id}.png` : '/icons/general.png'}
+                      alt={donationType?.id || "icon"}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  <span className="font-medium text-shrine-blue-dark">
+                    {t(`${state.donationType}`)}
+                  </span>
+                </div>
               </div>
 
               <div className="flex justify-between items-center py-2 border-b border-gray-100">
                 <span className="text-gray-500 text-sm">{locale === "ar" ? "المبلغ" : "Amount"}</span>
                 <span className="font-bold text-gold text-lg">
-                  {formatCurrency(state.amount)}
+                  {formatCurrency(state.amount, locale)}
                 </span>
               </div>
 

@@ -4,11 +4,14 @@ export function cn(...inputs: ClassValue[]) {
   return clsx(inputs);
 }
 
-export function formatCurrency(amount: number): string {
-  return new Intl.NumberFormat("ar-IQ", {
+export function formatCurrency(amount: number, locale: string = "ar"): string {
+  const isEn = locale === "en";
+  const formatted = new Intl.NumberFormat(isEn ? "en-US" : "ar-IQ", {
     style: "decimal",
     maximumFractionDigits: 0,
-  }).format(amount) + " د.ع";
+  }).format(amount);
+  
+  return isEn ? `IQD ${formatted}` : `${formatted} د.ع`;
 }
 
 export function generateReferenceId(): string {

@@ -3,6 +3,8 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { STATS } from "@/lib/constants";
+import { getStats } from "@/lib/api";
+import type { StatsResponse } from "@/lib/api";
 
 import { useTranslations, useLocale } from "next-intl";
 
@@ -38,6 +40,24 @@ export default function StatsSection() {
   const locale = useLocale();
   const t = useTranslations("Stats");
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const [stats, setStats] = useState(STATS);
+
+  useEffect(() => {
+    getStats()
+      .then((data: StatsResponse) => {
+        if (data.total > 0) {
+          setStats([
+            { id: "donors", label: "متبرع", value: data.total, icon: "👥" },
+            { id: "meals", label: "وجبة مقدمة", value: Math.floor(data.totalAmount / 500), icon: "🍽️" },
+            { id: "orphans", label: "يتيم مكفول", value: data.success, icon: "🤲" },
+            { id: "projects", label: "مشروع إعمار", value: Math.min(data.success, 100), icon: "🏗️" },
+          ]);
+        }
+      })
+      .catch(() => {
+        // Keep hardcoded STATS as fallback
+      });
+  }, []);
 
   return (
     <section ref={ref} className="py-[var(--spacing-fib-8)] px-4 relative overflow-hidden bg-white">
@@ -61,7 +81,7 @@ export default function StatsSection() {
         </motion.div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 sm:gap-16">
-          {STATS.map((stat, index) => (
+          {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
               initial={{ opacity: 0, scale: 0.9 }}

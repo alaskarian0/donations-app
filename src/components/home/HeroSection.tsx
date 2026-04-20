@@ -1,7 +1,7 @@
 "use client";
 
 import { Link } from "@/i18n/routing";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import Button from "@/components/ui/Button";
 import { SITE_NAME } from "@/lib/constants";
 import { useTranslations, useLocale } from "next-intl";
@@ -10,6 +10,7 @@ import Image from "next/image";
 
 export default function HeroSection() {
   const t = useTranslations("Hero");
+  const tc = useTranslations("Common");
   const locale = useLocale();
   const containerRef = useRef<HTMLElement>(null);
 
@@ -18,10 +19,14 @@ export default function HeroSection() {
     offset: ["start start", "end start"],
   });
 
-  // Smooth Parallax transitions with Breath easing
-  const yBg = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
-  const yText = useTransform(scrollYProgress, [0, 1], ["0%", "-10%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  // Smooth Parallax transitions with buttery Spring physics
+  const springConfig = { stiffness: 100, damping: 30, restDelta: 0.001 };
+  const yBgRaw = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const yTextRaw = useTransform(scrollYProgress, [0, 1], ["0%", "-10%"]);
+  
+  const yBg = useSpring(yBgRaw, springConfig);
+  const yText = useSpring(yTextRaw, springConfig);
+  const opacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
 
   return (
     <section
@@ -64,11 +69,10 @@ export default function HeroSection() {
               <Image
                 src="/image.png"
                 alt={SITE_NAME}
-                width={120}
-                height={120}
+                fill
                 priority
                 unoptimized
-                className="w-full h-full object-contain logo-gold-filter drop-shadow-lg"
+                className="p-7 object-contain logo-gold-filter drop-shadow-lg"
               />
             </div>
           </div>
@@ -78,16 +82,16 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.2 }}
-          className="text-[3.5rem] sm:text-[4.5rem] font-bold mb-10 gold-shimmer tracking-tight leading-[1.1] drop-shadow-sm"
+          className="text-[3.5rem] sm:text-[4.5rem] font-bold mb-10 gold-shimmer leading-[1.1] drop-shadow-sm"
         >
-          {SITE_NAME}
+          {tc("site_name")}
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.4 }}
-          className="text-gold-light/80 text-xl sm:text-[1.75rem] mb-8 font-light tracking-wide leading-tight max-w-2xl mx-auto italic"
+          className="text-gold-light/80 text-xl sm:text-[1.75rem] mb-8 font-light leading-tight max-w-2xl mx-auto italic"
         >
           {t("subtitle")}
         </motion.p>
@@ -96,7 +100,7 @@ export default function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 2, delay: 0.6 }}
-          className="text-gray-400 text-lg sm:text-[1.125rem] mb-16 font-extralight max-w-3xl mx-auto leading-[1.8] tracking-widest uppercase"
+          className="text-gray-400 text-lg sm:text-[1.125rem] mb-16 font-light max-w-3xl mx-auto leading-[1.8] uppercase"
         >
           {t("desc")}
         </motion.p>
@@ -120,7 +124,7 @@ export default function HeroSection() {
             </Button>
           </Link>
           <Link href="/about">
-            <Button variant="outline" size="lg" className="px-16 backdrop-blur-md border-gold/20 text-gold-light hover:bg-gold/5 font-light tracking-wide">
+            <Button variant="outline" size="lg" className="px-16 backdrop-blur-md border-gold/20 text-gold-light hover:bg-gold/5 font-light">
               {t("cta_about")}
             </Button>
           </Link>

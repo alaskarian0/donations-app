@@ -6,19 +6,22 @@ import { motion } from "framer-motion";
 import { useDonation } from "@/context/DonationContext";
 import { DONATION_TYPES } from "@/lib/constants";
 import { formatCurrency, formatCardNumber, formatExpiry } from "@/lib/utils";
+import { createDonation } from "@/lib/api";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
-import PaymentStepper from "@/components/payment/PaymentStepper";
-import ProcessingOverlay from "@/components/payment/ProcessingOverlay";
+import { useTranslations, useLocale } from "next-intl";
+import Image from "next/image";
 
 export default function SuperQiPage() {
   const router = useRouter();
+  const locale = useLocale();
   const { state, dispatch } = useDonation();
   const [cardNumber, setCardNumber] = useState("");
   const [expiry, setExpiry] = useState("");
   const [cvv, setCvv] = useState("");
   const [name, setName] = useState("");
   const [processing, setProcessing] = useState(false);
+  const [apiError, setApiError] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const donationType = DONATION_TYPES.find((t) => t.id === state.donationType);
@@ -33,15 +36,36 @@ export default function SuperQiPage() {
     return Object.keys(errs).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
-    // Card data stays local — only dispatch donor name to global state
     dispatch({ type: "SET_DONOR_NAME", payload: name });
     setProcessing(true);
-    setTimeout(() => {
-      router.push("/success");
-    }, 2500);
+    setApiError("");
+
+    try {
+      const data = await createDonation({
+        type: state.donationType?.toUpperCase() || '',
+        amount: state.amount || 0,
+        donorName: name,
+        donorPhone: state.donorPhone || '',
+        paymentMethod: "superqi",
+      });
+
+      dispatch({ type: "SET_DONATION_ID", payload: data.id });
+      dispatch({
+        type: "SET_PAYMENT_INFO",
+        payload: { paymentId: data.paymentId || '', status: "pending" },
+      });
+
+      setTimeout(() => {
+        router.push("/success");
+      }, 2500);
+    } catch (err) {
+      console.error(err);
+      setApiError("حدث خطأ أثناء الاتصال بالخادم. يرجى المحاولة لاحقاً.");
+      setProcessing(false);
+    }
   };
 
   if (!state.donationType || !state.amount) {
@@ -72,18 +96,29 @@ export default function SuperQiPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <Card className="p-5 mb-8">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-500">نوع التبرع</p>
-                  <p className="font-bold text-shrine-blue-dark">
-                    {donationType?.icon} {donationType?.nameAr}
-                  </p>
+            <Card className="p-8 mb-10 overflow-hidden relative theme-shrine-dark bg-shrine-blue-dark">
+              <div className="absolute inset-0 geometry-heartbeat geometric-bg opacity-[0.03] pointer-events-none" />
+              <div className="flex items-center justify-between relative z-10">
+                <div className="flex items-center gap-6">
+                  <div className="w-16 h-16 relative">
+                    <Image
+                      src={donationType ? `/icons/${donationType.id}.png` : '/icons/general.png'}
+                      alt={donationType?.nameAr || "Donation"}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gold/60 uppercase tracking-widest mb-1 italic">نوع التبرع</p>
+                    <p className="font-bold text-xl text-white">
+                      {donationType?.nameAr}
+                    </p>
+                  </div>
                 </div>
-                <div className="text-left">
-                  <p className="text-sm text-gray-500">المبلغ</p>
-                  <p className="font-bold text-gold text-lg">
-                    {formatCurrency(state.amount)}
+                <div className="text-left border-l border-gold/10 pl-8">
+                  <p className="text-sm text-gold/60 uppercase tracking-widest mb-1 italic">المبلغ</p>
+                  <p className="font-bold text-gold text-2xl">
+                    {formatCurrency(state.amount, locale)}
                   </p>
                 </div>
               </div>
@@ -123,7 +158,7 @@ export default function SuperQiPage() {
                     value={cardNumber}
                     onChange={(e) => setCardNumber(formatCardNumber(e.target.value))}
                     maxLength={19}
-                    className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-base focus:border-gold focus:bg-white focus:outline-none focus:ring-2 focus:ring-gold/20 transition-all tracking-widest"
+                    className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-xl focus:border-gold focus:bg-white focus:outline-none focus:ring-2 focus:ring-gold/20 transition-all font-bold"
                     dir="ltr"
                   />
                   {errors.cardNumber && (
@@ -193,8 +228,12 @@ export default function SuperQiPage() {
                   <p>بياناتك محمية بتشفير SSL. لن يتم حفظ بيانات بطاقتك.</p>
                 </div>
 
+                {apiError && (
+                  <p className="text-sm text-red-500 text-center">{apiError}</p>
+                )}
+
                 <Button type="submit" fullWidth size="lg" disabled={processing}>
-                  ادفع الآن - {formatCurrency(state.amount)}
+                  ادفع الآن - {formatCurrency(state.amount, locale)}
                 </Button>
               </form>
             </Card>

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Tajawal, Inter } from "next/font/google";
+import { IBM_Plex_Sans_Arabic, Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -9,10 +9,10 @@ import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 
-const tajawal = Tajawal({
-  variable: "--font-tajawal",
+const arabicFont = IBM_Plex_Sans_Arabic({
+  variable: "--font-arabic",
   subsets: ["arabic"],
-  weight: ["300", "400", "500", "700", "800", "900"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -58,12 +58,12 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} dir={locale === 'ar' ? 'rtl' : 'ltr'} className={`${tajawal.variable} ${inter.variable} h-full antialiased`}>
+    <html lang={locale} dir={locale === 'ar' ? 'rtl' : 'ltr'} className={`${arabicFont.variable} ${inter.variable} h-full antialiased`}>
       <head>
         <link rel="preconnect" href="https://alaskarian.net" crossOrigin="anonymous" />
       </head>
       <body className={`min-h-full flex flex-col font-arabic bg-background text-foreground`}>
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <DonationProvider>
             <Navbar />
             <main className="flex-1">{children}</main>

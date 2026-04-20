@@ -11,6 +11,8 @@ import Card from "@/components/ui/Card";
 import PaymentStepper from "@/components/payment/PaymentStepper";
 import ProcessingOverlay from "@/components/payment/ProcessingOverlay";
 import { useTranslations } from "next-intl";
+import { createDonation } from "@/lib/api";
+import Image from "next/image";
 
 export default function ZainCashPage() {
   const router = useRouter();
@@ -34,34 +36,20 @@ export default function ZainCashPage() {
     setProcessing(true);
 
     try {
-      // Initiate donation via Backend API
-      const response = await fetch('http://localhost:3001/donations', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          type: state.donationType?.toUpperCase(),
-          amount: state.amount,
-          donorName: state.donorName || "Guest",
-          donorPhone: phone,
-          paymentMethod: "zaincash",
-        }),
+      const data = await createDonation({
+        type: state.donationType?.toUpperCase() || '',
+        amount: state.amount || 0,
+        donorName: state.donorName || "Guest",
+        donorPhone: phone,
+        paymentMethod: "zaincash",
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to initiate donation");
-      }
-
-      const data = await response.json();
-      
-      // Update context with payment ID from backend
-      dispatch({ 
-        type: "SET_PAYMENT_INFO", 
-        payload: { paymentId: data.paymentId, status: "pending" } 
+      dispatch({ type: "SET_DONATION_ID", payload: data.id });
+      dispatch({
+        type: "SET_PAYMENT_INFO",
+        payload: { paymentId: data.paymentId || '', status: "pending" },
       });
 
-      // Simulate third-party delay
       setTimeout(() => {
         router.push("/success");
       }, 2000);
@@ -103,17 +91,28 @@ export default function ZainCashPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <Card className="p-5 mb-8">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-500">نوع التبرع</p>
-                  <p className="font-bold text-shrine-blue-dark">
-                    {donationType?.icon} {t(`${state.donationType}`)}
-                  </p>
+            <Card className="p-8 mb-10 overflow-hidden relative theme-shrine-dark bg-shrine-blue-dark">
+              <div className="absolute inset-0 geometry-heartbeat geometric-bg opacity-[0.03] pointer-events-none" />
+              <div className="flex items-center justify-between relative z-10">
+                <div className="flex items-center gap-6">
+                  <div className="w-16 h-16 relative">
+                    <Image
+                      src={donationType ? `/icons/${donationType.id}.png` : '/icons/general.png'}
+                      alt={donationType?.nameAr || "Donation"}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gold/60 uppercase tracking-widest mb-1 italic">نوع التبرع</p>
+                    <p className="font-bold text-xl text-white">
+                      {t(`${state.donationType}`)}
+                    </p>
+                  </div>
                 </div>
-                <div className="text-left">
-                  <p className="text-sm text-gray-500">المبلغ</p>
-                  <p className="font-bold text-gold text-lg">
+                <div className="text-left border-l border-gold/10 pl-8">
+                  <p className="text-sm text-gold/60 uppercase tracking-widest mb-1 italic">المبلغ</p>
+                  <p className="font-bold text-gold text-2xl">
                     {formatCurrency(state.amount)}
                   </p>
                 </div>
@@ -159,7 +158,7 @@ export default function ZainCashPage() {
                         setPhone(formatPhoneNumber(e.target.value));
                         setError("");
                       }}
-                      className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-base focus:border-gold focus:bg-white focus:outline-none focus:ring-2 focus:ring-gold/20 transition-all font-inter"
+                      className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-xl focus:border-gold focus:bg-white focus:outline-none focus:ring-2 focus:ring-gold/20 transition-all font-bold"
                       dir="ltr"
                     />
                   </div>

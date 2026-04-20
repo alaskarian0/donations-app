@@ -187,7 +187,7 @@ function DonateContent() {
                 const val = e.target.value.replace(/[^\d]/g, "");
                 dispatch({ type: "SET_CUSTOM_AMOUNT", payload: val });
               }}
-              className="w-full rounded-xl border border-gold/10 bg-gray-50 px-10 py-6 text-2xl text-gray-900 focus:border-gold focus:outline-none focus:ring-8 focus:ring-gold/5 transition-all font-inter placeholder:text-gray-400 shadow-inner"
+              className="w-full rounded-xl border border-gold/10 bg-gray-50 px-10 py-6 text-2xl text-gray-900 focus:border-gold focus:outline-none focus:ring-8 focus:ring-gold/5 transition-all placeholder:text-gray-500 shadow-inner"
               dir="ltr"
             />
             <span className={cn(
@@ -271,7 +271,7 @@ function DonateContent() {
               >
                 <span className="text-gold font-bold text-lg tracking-tight truncate">{dt(`${state.donationType}`)}</span>
                 <span className="text-gold-light/60 text-sm font-light tracking-widest uppercase italic">
-                  {state.amount ? formatCurrency(state.amount) : (state.customAmount ? formatCurrency(Number(state.customAmount)) : "---")}
+                  {state.amount ? formatCurrency(state.amount, locale) : (state.customAmount ? formatCurrency(Number(state.customAmount), locale) : "---")}
                 </span>
               </motion.div>
             )}
@@ -281,12 +281,15 @@ function DonateContent() {
             disabled={!isComplete}
             onClick={handleContinue}
             className={cn(
-              "shrink-0 px-16 h-16 rounded-full font-black uppercase tracking-[0.25em] transition-all duration-700 hover:scale-105",
+              "shrink-0 px-12 h-16 rounded-xl font-bold transition-all duration-700 hover:scale-105 flex items-center justify-center gap-4",
               isComplete ? "shadow-gold-glow bg-gold text-shrine-blue-dark" : "opacity-20 cursor-not-allowed"
             )}
           >
-            {locale === 'ar' ? 'إتمام المساهمة' : 'Finalize Contribution'}
-            <span className={cn("ml-3", locale === 'ar' ? 'rotate-180 -mr-3 ml-6' : '')}>→</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+              <path d="M4.5 3.75a3 3 0 0 0-3 3v.75h21v-.75a3 3 0 0 0-3-3h-15Z" />
+              <path fillRule="evenodd" d="M22.5 9.75h-21v7.5a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3v-7.5Zm-18 3.75a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1-.75-.75Zm.75 2.25a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Z" clipRule="evenodd" />
+            </svg>
+            <span className="text-xl">{locale === 'ar' ? 'إتمام المساهمة' : 'Finalize Contribution'}</span>
           </Button>
         </div>
       </div>

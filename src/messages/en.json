@@ -1,4 +1,8 @@
 {
+  "Common": {
+    "site_name": "Al-Askari Holy Shrine",
+    "site_subtitle": "Shrine of Imams Ali al-Hadi and al-Hasan al-Askari (pbut)"
+  },
   "Hero": {
     "subtitle": "Shrine of Imams Ali al-Hadi and al-Hasan al-Askari (pbut)",
     "location": "Samarra, Iraq",

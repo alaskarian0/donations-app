@@ -29,6 +29,7 @@ export interface DonationState {
   paymentMethod: PaymentMethod | null;
   donorName: string;
   donorPhone: string;
+  donationId?: string;
   paymentId?: string;
   transactionId?: string;
   status: "idle" | "pending" | "success" | "failed";
@@ -42,5 +43,6 @@ export type DonationAction =
   | { type: "SET_DONOR_NAME"; payload: string }
   | { type: "SET_DONOR_PHONE"; payload: string }
   | { type: "SET_PAYMENT_INFO"; payload: { paymentId: string; status: DonationState["status"] } }
+  | { type: "SET_DONATION_ID"; payload: string }
   | { type: "SET_STATUS"; payload: DonationState["status"] }
   | { type: "RESET" };
