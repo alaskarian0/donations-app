@@ -20,14 +20,23 @@ export default function Navbar() {
   // Scroll animations for Header (Breath Easing)
   const { scrollY } = useScroll();
   const height = useTransform(scrollY, [0, 80], ["6.5rem", "5rem"]);
+  
+  // Transition from transparent (over dark hero) to white (over light content)
   const backgroundColor = useTransform(
     scrollY,
     [0, 80],
-    ["rgba(5, 11, 20, 0)", "rgba(5, 11, 20, 0.98)"]
+    ["rgba(5, 11, 20, 0)", "rgba(255, 255, 255, 0.98)"]
   );
-  const borderOpacity = useTransform(scrollY, [0, 80], [0, 0.15]);
+  
+  const textColor = useTransform(
+    scrollY,
+    [0, 80],
+    ["rgba(255, 255, 255, 0.9)", "rgba(5, 11, 20, 0.8)"]
+  );
+
+  const borderOpacity = useTransform(scrollY, [0, 80], [0, 0.1]);
   const borderColor = useTransform(borderOpacity, (o) => `rgba(212, 175, 55, ${o})`);
-  const blur = useTransform(scrollY, [0, 80], ["blur(0px)", "blur(40px)"]);
+  const blur = useTransform(scrollY, [0, 80], ["blur(0px)", "blur(20px)"]);
   const brandingOpacity = useTransform(scrollY, [0, 60], [0, 1]);
 
   const toggleLocale = () => {
@@ -48,9 +57,10 @@ export default function Navbar() {
           height,
           backgroundColor,
           backdropFilter: blur,
-          borderColor
+          borderColor,
+          color: textColor
         }}
-        className="fixed top-0 left-0 right-0 z-50 border-b flex items-center shadow-premium-sm transition-all duration-1000"
+        className="fixed top-0 left-0 right-0 z-50 border-b flex items-center shadow-premium-sm transition-all duration-700"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="flex items-center justify-between">
@@ -79,26 +89,29 @@ export default function Navbar() {
             {/* Desktop Nav Links */}
             <div className="hidden md:flex items-center gap-10">
               {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={cn(
-                    "text-[0.7rem] font-bold uppercase tracking-[0.25em] transition-all duration-700 hover:scale-105",
-                    pathname === link.href
-                      ? "text-gold"
-                      : "text-gray-300 hover:text-gold"
-                  )}
-                >
-                  {link.label}
-                </Link>
+                <motion.div key={link.href}>
+                  <Link
+                    href={link.href}
+                    style={{ color: pathname === link.href ? "var(--color-gold)" : undefined }}
+                    className={cn(
+                      "text-[0.7rem] font-bold uppercase tracking-[0.25em] transition-all duration-700 hover:scale-105",
+                      pathname === link.href
+                        ? "text-gold"
+                        : "hover:text-gold"
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
               ))}
 
-              <button
+              <motion.button
                 onClick={toggleLocale}
-                className="text-gray-400 hover:text-gold text-[0.65rem] font-black tracking-[0.3em] uppercase transition-all px-4 py-1.5 border border-gold/10 rounded-full hover:border-gold/40"
+                style={{ borderColor: useTransform(scrollY, [0, 80], ["rgba(212, 175, 55, 0.2)", "rgba(212, 175, 55, 0.1)"]) }}
+                className="hover:text-gold text-[0.65rem] font-black tracking-[0.3em] uppercase transition-all px-4 py-1.5 border rounded-full hover:border-gold/40"
               >
                 {locale === "ar" ? "English" : "العربية"}
-              </button>
+              </motion.button>
 
               <Link href="/donate">
                 <Button size="sm" className="shadow-gold-glow px-8">

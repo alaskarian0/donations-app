@@ -40,8 +40,8 @@ export default function StatsSection() {
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="py-[var(--spacing-fib-8)] px-4 relative overflow-hidden bg-shrine-blue-dark">
-       {/* Islamic Geometry Background Pulse */}
+    <section ref={ref} className="py-[var(--spacing-fib-8)] px-4 relative overflow-hidden bg-white">
+       {/* Islamic Geometry Background Pulse - Subtle for light mode */}
       <div className="absolute inset-0 geometry-heartbeat geometric-bg opacity-[0.03] pointer-events-none" />
       
       <div className="max-w-6xl mx-auto px-4 relative z-10">
@@ -55,7 +55,7 @@ export default function StatsSection() {
             {t("title")}
           </h2>
           <div className="h-px w-24 bg-gold/30 mx-auto mb-8" />
-          <p className="text-gray-400 text-lg font-light tracking-wide italic">
+          <p className="text-gray-500 text-lg font-light tracking-wide italic">
              {t("subtitle")}
           </p>
         </motion.div>

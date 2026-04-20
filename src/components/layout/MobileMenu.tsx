@@ -36,8 +36,11 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
       {/* Drawer */}
       <div
         className={cn(
-          "fixed top-0 right-0 h-full w-80 bg-shrine-blue-dark z-50 transform transition-transform duration-700 ease-breath md:hidden border-l border-gold/10",
-          open ? "translate-x-0" : "translate-x-full"
+          "fixed top-0 h-full w-80 bg-shrine-blue-dark z-50 transform transition-transform duration-700 ease-breath md:hidden border-gold/10 theme-shrine-dark shadow-2xl",
+          locale === 'ar' ? "left-0 border-r" : "right-0 border-l",
+          open 
+            ? "translate-x-0" 
+            : (locale === 'ar' ? "-translate-x-full" : "translate-x-full")
         )}
       >
         <div className="p-8 h-full flex flex-col">

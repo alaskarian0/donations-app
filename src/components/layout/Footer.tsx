@@ -41,7 +41,7 @@ export default function Footer() {
   }, [serenity]);
 
   return (
-    <footer className="bg-shrine-blue-dark text-white pt-[var(--spacing-fib-8)] pb-16 border-t border-gold/5 relative overflow-hidden">
+    <footer className="bg-shrine-blue-dark text-white pt-[var(--spacing-fib-8)] pb-16 border-t border-gold/5 relative overflow-hidden theme-shrine-dark">
       {/* Background Heartbeat for the footer base */}
       <div className="absolute inset-0 geometry-heartbeat geometric-bg opacity-[0.015] pointer-events-none" />
 
