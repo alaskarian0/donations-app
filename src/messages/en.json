@@ -1,0 +1,40 @@
+{
+  "Hero": {
+    "subtitle": "Shrine of Imams Ali al-Hadi and al-Hasan al-Askari (pbut)",
+    "location": "Samarra, Iraq",
+    "cta_donate": "Donate Now",
+    "cta_about": "About the Shrine",
+    "desc": "Contribute to the service of the Holy Shrine"
+  },
+  "Nav": {
+    "home": "Home",
+    "donate": "Donations",
+    "about": "About"
+  },
+  "Categories": {
+    "title": "Donation Doors",
+    "subtitle": "Choose the type of donation you wish to contribute to support the Holy Shrine services"
+  },
+  "DonationTypes": {
+    "sadaqah": "Sadaqah",
+    "sadaqah_desc": "Voluntary donation for the sake of Allah for goodness and blessings",
+    "waqf": "Waqf",
+    "waqf_desc": "Permanent charitable endowment to support the Holy Shrine services",
+    "orphan": "Orphan Sponsorship",
+    "orphan_desc": "Sponsoring and caring for orphans and providing their basic needs",
+    "feeding": "Feeding Visitors",
+    "feeding_desc": "Contributing to providing food for visitors of the Holy Shrine",
+    "reconstruction": "Shrine Reconstruction",
+    "reconstruction_desc": "Contributing to the building, maintenance, and restoration of the Shrine",
+    "general": "General Services",
+    "general_desc": "Supporting public services, educational, and cultural programs"
+  },
+  "Stats": {
+    "title": "Our Impact",
+    "subtitle": "Through your generous contributions, we fulfill our commitment to the Holy Shrine and its visitors",
+    "donors": "Donors",
+    "meals": "Meals Served",
+    "orphans": "Orphans Sponsored",
+    "projects": "Reconstruction Projects"
+  }
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, Link } from "@/i18n/routing";
 import { motion } from "framer-motion";
 import { useDonation } from "@/context/DonationContext";
 import { DONATION_TYPES } from "@/lib/constants";
@@ -10,17 +10,19 @@ import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import PaymentStepper from "@/components/payment/PaymentStepper";
 import ProcessingOverlay from "@/components/payment/ProcessingOverlay";
+import { useTranslations } from "next-intl";
 
 export default function ZainCashPage() {
   const router = useRouter();
   const { state, dispatch } = useDonation();
+  const t = useTranslations("DonationTypes");
   const [phone, setPhone] = useState("");
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState("");
 
   const donationType = DONATION_TYPES.find((t) => t.id === state.donationType);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const digits = phone.replace(/\D/g, "");
     if (digits.length < 11) {
@@ -30,9 +32,45 @@ export default function ZainCashPage() {
     setError("");
     dispatch({ type: "SET_DONOR_PHONE", payload: phone });
     setProcessing(true);
-    setTimeout(() => {
-      router.push("/success");
-    }, 2500);
+
+    try {
+      // Initiate donation via Backend API
+      const response = await fetch('http://localhost:3001/donations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: state.donationType?.toUpperCase(),
+          amount: state.amount,
+          donorName: state.donorName || "Guest",
+          donorPhone: phone,
+          paymentMethod: "zaincash",
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to initiate donation");
+      }
+
+      const data = await response.json();
+      
+      // Update context with payment ID from backend
+      dispatch({ 
+        type: "SET_PAYMENT_INFO", 
+        payload: { paymentId: data.paymentId, status: "pending" } 
+      });
+
+      // Simulate third-party delay
+      setTimeout(() => {
+        router.push("/success");
+      }, 2000);
+
+    } catch (err) {
+      console.error(err);
+      setError("حدث خطأ أثناء الاتصال بالخادم. يرجى المحاولة لاحقاً.");
+      setProcessing(false);
+    }
   };
 
   if (!state.donationType || !state.amount) {
@@ -40,7 +78,9 @@ export default function ZainCashPage() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
         <Card className="p-8 text-center max-w-md">
           <p className="text-gray-500 mb-4">لم يتم اختيار تبرع بعد</p>
-          <Button onClick={() => router.push("/donate")}>العودة للتبرع</Button>
+          <Link href="/donate">
+            <Button>العودة للتبرع</Button>
+          </Link>
         </Card>
       </div>
     );
@@ -68,7 +108,7 @@ export default function ZainCashPage() {
                 <div>
                   <p className="text-sm text-gray-500">نوع التبرع</p>
                   <p className="font-bold text-shrine-blue-dark">
-                    {donationType?.icon} {donationType?.nameAr}
+                    {donationType?.icon} {t(`${state.donationType}`)}
                   </p>
                 </div>
                 <div className="text-left">
@@ -119,7 +159,7 @@ export default function ZainCashPage() {
                         setPhone(formatPhoneNumber(e.target.value));
                         setError("");
                       }}
-                      className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-base focus:border-gold focus:bg-white focus:outline-none focus:ring-2 focus:ring-gold/20 transition-all"
+                      className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-base focus:border-gold focus:bg-white focus:outline-none focus:ring-2 focus:ring-gold/20 transition-all font-inter"
                       dir="ltr"
                     />
                   </div>

@@ -30,7 +30,7 @@ export default function PaymentStepper({ currentStep }: PaymentStepperProps) {
               <span
                 className={cn(
                   "text-xs sm:text-sm font-medium hidden sm:block",
-                  isActive ? "text-shrine-blue-dark" : "text-gray-400"
+                  isActive ? "text-gold" : "text-gray-400"
                 )}
               >
                 {step}

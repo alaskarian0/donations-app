@@ -67,8 +67,8 @@ export const NAV_LINKS = [
 ];
 
 export const STATS = [
-  { label: "متبرع", value: 12500, icon: "👥" },
-  { label: "وجبة مقدمة", value: 45000, icon: "🍽️" },
-  { label: "يتيم مكفول", value: 850, icon: "🤲" },
-  { label: "مشروع إعمار", value: 23, icon: "🏗️" },
+  { id: "donors", label: "متبرع", value: 12500, icon: "👥" },
+  { id: "meals", label: "وجبة مقدمة", value: 45000, icon: "🍽️" },
+  { id: "orphans", label: "يتيم مكفول", value: 850, icon: "🤲" },
+  { id: "projects", label: "مشروع إعمار", value: 23, icon: "🏗️" },
 ];

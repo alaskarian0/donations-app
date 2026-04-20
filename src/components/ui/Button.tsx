@@ -15,27 +15,32 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={cn(
-          "inline-flex items-center justify-center gap-2 rounded-xl font-medium transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed",
+          "relative inline-flex items-center justify-center gap-3 rounded-full font-bold transition-all duration-500 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed active:scale-95 overflow-hidden group hover:scale-[1.02] hover:-translate-y-0.5",
           {
-            "bg-gold text-shrine-blue-dark hover:bg-gold-dark shadow-lg shadow-gold/20 hover:shadow-gold/40":
+            "bg-gradient-to-br from-gold-light via-gold to-gold-dark text-shrine-blue-dark shadow-gold-glow hover:shadow-[0_0_40px_rgba(212,175,55,0.4)]":
               variant === "primary",
-            "bg-shrine-blue text-white hover:bg-shrine-blue-dark":
+            "bg-shrine-blue text-white hover:bg-shrine-blue-dark shadow-cloud":
               variant === "secondary",
-            "border-2 border-gold text-gold hover:bg-gold/10":
+            "border-2 border-gold/40 text-gold hover:bg-gold/5 hover:border-gold":
               variant === "outline",
             "text-gold hover:bg-gold/10": variant === "ghost",
           },
           {
-            "px-4 py-2 text-sm": size === "sm",
-            "px-6 py-3 text-base": size === "md",
-            "px-8 py-4 text-lg": size === "lg",
+            "h-[2.5rem] px-5 text-sm": size === "sm",
+            "h-[3.5rem] px-10 text-base": size === "md",
+            "h-[4rem] px-14 text-lg": size === "lg",
           },
           fullWidth && "w-full",
           className
         )}
         {...props}
       >
-        {children}
+        {/* Subtle Shimmer for Primary */}
+        {variant === "primary" && (
+          <div className="absolute inset-0 metallic-shimmer opacity-30 pointer-events-none" />
+        )}
+        
+        <span className="relative z-10">{children}</span>
       </button>
     );
   }

@@ -36,9 +36,7 @@ export default function SuperQiPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
-    dispatch({ type: "SET_CARD_NUMBER", payload: cardNumber });
-    dispatch({ type: "SET_CARD_EXPIRY", payload: expiry });
-    dispatch({ type: "SET_CARD_CVV", payload: cvv });
+    // Card data stays local — only dispatch donor name to global state
     dispatch({ type: "SET_DONOR_NAME", payload: name });
     setProcessing(true);
     setTimeout(() => {

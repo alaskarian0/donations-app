@@ -29,9 +29,9 @@ export interface DonationState {
   paymentMethod: PaymentMethod | null;
   donorName: string;
   donorPhone: string;
-  cardNumber: string;
-  cardExpiry: string;
-  cardCVV: string;
+  paymentId?: string;
+  transactionId?: string;
+  status: "idle" | "pending" | "success" | "failed";
 }
 
 export type DonationAction =
@@ -41,7 +41,6 @@ export type DonationAction =
   | { type: "SET_PAYMENT_METHOD"; payload: PaymentMethod }
   | { type: "SET_DONOR_NAME"; payload: string }
   | { type: "SET_DONOR_PHONE"; payload: string }
-  | { type: "SET_CARD_NUMBER"; payload: string }
-  | { type: "SET_CARD_EXPIRY"; payload: string }
-  | { type: "SET_CARD_CVV"; payload: string }
+  | { type: "SET_PAYMENT_INFO"; payload: { paymentId: string; status: DonationState["status"] } }
+  | { type: "SET_STATUS"; payload: DonationState["status"] }
   | { type: "RESET" };

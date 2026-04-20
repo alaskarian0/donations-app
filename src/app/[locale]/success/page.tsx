@@ -1,20 +1,23 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/routing";
 import { motion } from "framer-motion";
 import { useDonation } from "@/context/DonationContext";
 import { DONATION_TYPES, PAYMENT_METHODS } from "@/lib/constants";
-import { formatCurrency, generateReferenceId } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
+import { useTranslations, useLocale } from "next-intl";
 
 export default function SuccessPage() {
   const router = useRouter();
   const { state, dispatch } = useDonation();
-  const [refId] = useState(generateReferenceId);
+  const locale = useLocale();
+  const t = useTranslations("DonationTypes");
+  
   const [timestamp] = useState(() =>
-    new Date().toLocaleDateString("ar-IQ", {
+    new Date().toLocaleDateString(locale === "ar" ? "ar-IQ" : "en-US", {
       year: "numeric",
       month: "long",
       day: "numeric",
@@ -85,7 +88,7 @@ export default function SuccessPage() {
             transition={{ delay: 0.5 }}
             className="text-2xl sm:text-3xl font-bold text-shrine-blue-dark mb-2"
           >
-            شكراً لتبرعك الكريم
+            {locale === "ar" ? "شكراً لتبرعك الكريم" : "Thank you for your generous donation"}
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -93,7 +96,7 @@ export default function SuccessPage() {
             transition={{ delay: 0.6 }}
             className="text-gray-500"
           >
-            جزاك الله خير الجزاء
+            {locale === "ar" ? "جزاك الله خير الجزاء" : "May Allah reward you with goodness"}
           </motion.p>
         </motion.div>
 
@@ -105,41 +108,41 @@ export default function SuccessPage() {
         >
           <Card goldBorder className="p-6">
             <h2 className="font-bold text-shrine-blue-dark mb-4 text-center">
-              تفاصيل التبرع
+              {locale === "ar" ? "تفاصيل التبرع" : "Donation Details"}
             </h2>
 
             <div className="space-y-4">
               <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                <span className="text-gray-500 text-sm">رقم المرجع</span>
+                <span className="text-gray-500 text-sm">{locale === "ar" ? "رقم المرجع (Payment ID)" : "Payment ID"}</span>
                 <span className="font-mono text-sm font-bold text-shrine-blue-dark" dir="ltr">
-                  {refId}
+                  {state.paymentId || "---"}
                 </span>
               </div>
 
               <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                <span className="text-gray-500 text-sm">نوع التبرع</span>
+                <span className="text-gray-500 text-sm">{locale === "ar" ? "نوع التبرع" : "Donation Type"}</span>
                 <span className="font-medium text-shrine-blue-dark">
-                  {donationType?.icon} {donationType?.nameAr}
+                  {donationType?.icon} {t(`${state.donationType}`)}
                 </span>
               </div>
 
               <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                <span className="text-gray-500 text-sm">المبلغ</span>
+                <span className="text-gray-500 text-sm">{locale === "ar" ? "المبلغ" : "Amount"}</span>
                 <span className="font-bold text-gold text-lg">
                   {formatCurrency(state.amount)}
                 </span>
               </div>
 
               <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                <span className="text-gray-500 text-sm">طريقة الدفع</span>
+                <span className="text-gray-500 text-sm">{locale === "ar" ? "طريقة الدفع" : "Payment Method"}</span>
                 <span className="font-medium text-shrine-blue-dark">
-                  {paymentMethod?.nameAr}
+                  {locale === "ar" ? paymentMethod?.nameAr : paymentMethod?.nameEn}
                 </span>
               </div>
 
               <div className="flex justify-between items-center py-2">
-                <span className="text-gray-500 text-sm">التاريخ</span>
-                <span className="text-sm text-shrine-blue-dark">{timestamp}</span>
+                <span className="text-gray-500 text-sm">{locale === "ar" ? "التاريخ" : "Date"}</span>
+                <span className="text-sm text-shrine-blue-dark font-inter">{timestamp}</span>
               </div>
             </div>
           </Card>
@@ -153,10 +156,10 @@ export default function SuccessPage() {
           className="mt-8 flex flex-col sm:flex-row gap-3"
         >
           <Button fullWidth onClick={handleDonateAgain}>
-            تبرع مرة أخرى
+            {locale === "ar" ? "تبرع مرة أخرى" : "Donate Again"}
           </Button>
           <Button fullWidth variant="outline" onClick={handleGoHome}>
-            الرئيسية
+            {locale === "ar" ? "الرئيسية" : "Home"}
           </Button>
         </motion.div>
 
@@ -165,9 +168,11 @@ export default function SuccessPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}
-          className="text-center text-gray-400 text-sm mt-8 leading-7"
+          className="text-center text-gray-400 text-sm mt-8 leading-7 italic"
         >
-          &quot;مَنْ تَصَدَّقَ بِصَدَقَةٍ فَلَهُ مِثْلُ أَجْرِ مَنْ عَمِلَ بِهَا&quot;
+          {locale === "ar" 
+            ? "«مَنْ تَصَدَّقَ بِصَدَقَةٍ فَلَهُ مِثْلُ أَجْرِ مَنْ عَمِلَ بِهَا»"
+            : "\"Whoever gives charity, they will have a reward like the one who acted upon it.\""}
         </motion.p>
       </div>
     </div>
