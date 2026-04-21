@@ -35,6 +35,17 @@ export default function SuccessPage() {
   const donationType = DONATION_TYPES.find((t) => t.id === state.donationType);
   const paymentMethod = PAYMENT_METHODS.find((m) => m.id === state.paymentMethod);
 
+  const getIconPath = (id: string) => {
+    const iconMap: Record<string, string> = {
+      general: 'general.png',
+      reconstruction: 'reconstruction.png',
+      mudhif: 'feeding.png',
+      sacrifices: 'sadaqah.png',
+      servants: 'waqf.png' 
+    };
+    return `/icons/${iconMap[id] || 'general.png'}`;
+  };
+
   const handleDonateAgain = () => {
     dispatch({ type: "RESET" });
     router.push("/donate");
@@ -158,7 +169,7 @@ export default function SuccessPage() {
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 relative">
                     <Image
-                      src={donationType ? `/icons/${donationType.id}.png` : '/icons/general.png'}
+                      src={donationType ? getIconPath(donationType.id) : '/icons/general.png'}
                       alt={donationType?.id || "icon"}
                       fill
                       className="object-contain"

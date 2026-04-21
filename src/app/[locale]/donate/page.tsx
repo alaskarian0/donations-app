@@ -39,8 +39,14 @@ function DonateContent() {
   };
 
   const getIconPath = (id: string) => {
-    const validIcons = ['sadaqah', 'waqf', 'reconstruction', 'feeding', 'orphan', 'general'];
-    return validIcons.includes(id) ? `/icons/${id}.png` : '/icons/general.png';
+    const iconMap: Record<string, string> = {
+      general: 'general.png',
+      reconstruction: 'reconstruction.png',
+      mudhif: 'feeding.png',
+      sacrifices: 'sadaqah.png',
+      servants: 'waqf.png' 
+    };
+    return `/icons/${iconMap[id] || 'general.png'}`;
   };
 
   return (

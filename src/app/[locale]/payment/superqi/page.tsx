@@ -28,6 +28,17 @@ export default function SuperQiPage() {
 
   const donationType = DONATION_TYPES.find((t) => t.id === state.donationType);
 
+  const getIconPath = (id: string) => {
+    const iconMap: Record<string, string> = {
+      general: 'general.png',
+      reconstruction: 'reconstruction.png',
+      mudhif: 'feeding.png',
+      sacrifices: 'sadaqah.png',
+      servants: 'waqf.png' 
+    };
+    return `/icons/${iconMap[id] || 'general.png'}`;
+  };
+
   const validate = () => {
     const errs: Record<string, string> = {};
     if (cardNumber.replace(/\s/g, "").length < 16) errs.cardNumber = "رقم البطاقة غير صحيح";
@@ -104,7 +115,7 @@ export default function SuperQiPage() {
                 <div className="flex items-center gap-6">
                   <div className="w-16 h-16 relative">
                     <Image
-                      src={donationType ? `/icons/${donationType.id}.png` : '/icons/general.png'}
+                      src={donationType ? getIconPath(donationType.id) : '/icons/general.png'}
                       alt={donationType?.nameAr || "Donation"}
                       fill
                       className="object-contain"

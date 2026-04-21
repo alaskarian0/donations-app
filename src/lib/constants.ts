@@ -6,40 +6,34 @@ export const SITE_LOCATION = "سامراء، العراق";
 
 export const DONATION_TYPES: DonationTypeInfo[] = [
   {
-    id: "sadaqah",
-    nameAr: "صدقة",
-    descriptionAr: "تبرع طوعي لوجه الله تعالى في سبيل الخير والبركة",
-    icon: "💝",
-  },
-  {
-    id: "waqf",
-    nameAr: "وقف",
-    descriptionAr: "وقف خيري دائم لدعم خدمات المرقد الشريف",
-    icon: "🕌",
-  },
-  {
-    id: "orphan",
-    nameAr: "كفالة يتيم",
-    descriptionAr: "كفالة ورعاية الأيتام وتوفير احتياجاتهم الأساسية",
-    icon: "🤲",
-  },
-  {
-    id: "feeding",
-    nameAr: "إطعام الزوار",
-    descriptionAr: "المساهمة في تقديم الطعام لزوار المرقد الطاهر",
-    icon: "🍽️",
+    id: "general",
+    nameAr: "مخصص صرف عام",
+    descriptionAr: "تخصيص عام لكافة احتياجات ومشاريع العتبة",
+    icon: "⭐",
   },
   {
     id: "reconstruction",
-    nameAr: "إعمار المرقد",
-    descriptionAr: "المساهمة في إعمار وصيانة وترميم المرقد الشريف",
+    nameAr: "مخصص اعمار وتوسعة",
+    descriptionAr: "المساهمة في مشاريع الإعمار والتوسعة للمرقد الشريف",
     icon: "🏗️",
   },
   {
-    id: "general",
-    nameAr: "خدمات عامة",
-    descriptionAr: "دعم الخدمات العامة والبرامج التعليمية والثقافية",
-    icon: "⭐",
+    id: "mudhif",
+    nameAr: "مخصص المضيف",
+    descriptionAr: "المساهمة في مضيف الزائرين وتوفير وجبات الطعام",
+    icon: "🍽️",
+  },
+  {
+    id: "sacrifices",
+    nameAr: "مخصص شراء ذبائح",
+    descriptionAr: "المساهمة في شراء الذبائح لوجه الله تعالى",
+    icon: "💝",
+  },
+  {
+    id: "servants",
+    nameAr: "مخصص خدام العتبة العسكرية المقدسة",
+    descriptionAr: "دعم وتقديم الخدمات لخدام المرقد الشريف",
+    icon: "🤲",
   },
 ];
 

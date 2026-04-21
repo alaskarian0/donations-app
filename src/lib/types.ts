@@ -1,10 +1,9 @@
 export type DonationType =
-  | "sadaqah"
-  | "waqf"
-  | "orphan"
-  | "feeding"
+  | "general"
   | "reconstruction"
-  | "general";
+  | "mudhif"
+  | "sacrifices"
+  | "servants";
 
 export interface DonationTypeInfo {
   id: DonationType;

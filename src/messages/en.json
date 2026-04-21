@@ -20,18 +20,16 @@
     "subtitle": "Choose the type of donation you wish to contribute to support the Holy Shrine services"
   },
   "DonationTypes": {
-    "sadaqah": "Sadaqah",
-    "sadaqah_desc": "Voluntary donation for the sake of Allah for goodness and blessings",
-    "waqf": "Waqf",
-    "waqf_desc": "Permanent charitable endowment to support the Holy Shrine services",
-    "orphan": "Orphan Sponsorship",
-    "orphan_desc": "Sponsoring and caring for orphans and providing their basic needs",
-    "feeding": "Feeding Visitors",
-    "feeding_desc": "Contributing to providing food for visitors of the Holy Shrine",
-    "reconstruction": "Shrine Reconstruction",
-    "reconstruction_desc": "Contributing to the building, maintenance, and restoration of the Shrine",
-    "general": "General Services",
-    "general_desc": "Supporting public services, educational, and cultural programs"
+    "general": "General Expenses Allocation",
+    "general_desc": "General allocation for all Shrine needs and projects",
+    "reconstruction": "Reconstruction & Expansion Allocation",
+    "reconstruction_desc": "Contributing to the reconstruction and expansion projects of the Holy Shrine",
+    "mudhif": "Host (Mudhif) Allocation",
+    "mudhif_desc": "Contributing to the visitor's host and providing meals",
+    "sacrifices": "Sacrifices Purchase Allocation",
+    "sacrifices_desc": "Contributing to the purchase of sacrifices for the sake of Allah",
+    "servants": "Holy Shrine Servants Allocation",
+    "servants_desc": "Supporting and providing services for the servants of the Holy Shrine"
   },
   "Stats": {
     "title": "Our Impact",

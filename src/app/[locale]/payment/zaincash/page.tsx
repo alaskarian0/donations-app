@@ -24,6 +24,17 @@ export default function ZainCashPage() {
 
   const donationType = DONATION_TYPES.find((t) => t.id === state.donationType);
 
+  const getIconPath = (id: string) => {
+    const iconMap: Record<string, string> = {
+      general: 'general.png',
+      reconstruction: 'reconstruction.png',
+      mudhif: 'feeding.png',
+      sacrifices: 'sadaqah.png',
+      servants: 'waqf.png' 
+    };
+    return `/icons/${iconMap[id] || 'general.png'}`;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const digits = phone.replace(/\D/g, "");
@@ -97,7 +108,7 @@ export default function ZainCashPage() {
                 <div className="flex items-center gap-6">
                   <div className="w-16 h-16 relative">
                     <Image
-                      src={donationType ? `/icons/${donationType.id}.png` : '/icons/general.png'}
+                      src={donationType ? getIconPath(donationType.id) : '/icons/general.png'}
                       alt={donationType?.nameAr || "Donation"}
                       fill
                       className="object-contain"
