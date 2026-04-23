@@ -2,7 +2,22 @@
   "permissions": {
     "allow": [
       "WebSearch",
-      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --yes)"
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --yes)",
+      "Bash(npm install:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(gh auth:*)",
+      "Bash(gh repo:*)",
+      "Bash(git remote:*)",
+      "Bash(mkdir -p src/app/[locale])",
+      "Bash(mv src/app/about src/app/donate src/app/payment src/app/success src/app/[locale]/)",
+      "Bash(mv src/app/payment src/app/[locale]/payment)",
+      "Bash(mv src/app/page.tsx src/app/[locale]/page.tsx)",
+      "Bash(cp src/app/page.tsx src/app/[locale]/page.tsx)",
+      "Bash(ls src/app/[locale]/)",
+      "Bash(npm list:*)",
+      "Bash(netlify deploy:*)",
+      "Bash(npm ls:*)"
     ]
   }
 }

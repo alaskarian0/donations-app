@@ -1,79 +1,39 @@
 "use client";
 
-import { Link } from "@/i18n/routing";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import Button from "@/components/ui/Button";
-import { SITE_NAME } from "@/lib/constants";
-import { useTranslations, useLocale } from "next-intl";
-import { useRef } from "react";
-import Image from "next/image";
 
 export default function HeroSection() {
-  const t = useTranslations("Hero");
-  const tc = useTranslations("Common");
-  const locale = useLocale();
-  const containerRef = useRef<HTMLElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
-
-  // Smooth Parallax transitions with buttery Spring physics
-  const springConfig = { stiffness: 100, damping: 30, restDelta: 0.001 };
-  const yBgRaw = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const yTextRaw = useTransform(scrollYProgress, [0, 1], ["0%", "-10%"]);
-  
-  const yBg = useSpring(yBgRaw, springConfig);
-  const yText = useSpring(yTextRaw, springConfig);
-  const opacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
+  const tSite = useTranslations("site");
+  const t = useTranslations("hero");
 
   return (
-    <section
-      ref={containerRef}
-      className="relative min-h-[95vh] flex items-center justify-center overflow-hidden pb-[var(--spacing-fib-8)] theme-shrine-dark"
-    >
-      {/* Soft Ambient Background with Heartbeat Geometry */}
-      <motion.div
-        style={{ y: yBg }}
-        className="absolute inset-0 bg-ambient"
-      >
-        <div className="holy-particles" />
-        <div className="absolute inset-0 geometry-heartbeat geometric-bg" />
-      </motion.div>
+    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-shrine-blue-dark via-shrine-blue to-shrine-blue-dark" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(212,175,55,0.15)_0%,_transparent_60%)]" />
+      <div className="absolute inset-0 opacity-5">
+        <div
+          className="w-full h-full"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23D4AF37' fill-opacity='1'%3E%3Cpath d='M40 0l40 40-40 40L0 40zm0 10L10 40l30 30 30-30z'/%3E%3C/g%3E%3C/svg%3E")`,
+            backgroundSize: "80px 80px",
+          }}
+        />
+      </div>
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-b-full bg-gradient-to-b from-gold/20 to-transparent blur-sm" />
 
-      <motion.div
-        style={{ y: yBg, opacity }}
-        className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(212,175,55,0.12)_0%,_transparent_70%)]"
-      />
-
-      {/* Content Layer (The Whisper Philosophy) */}
-      <motion.div
-        style={{ y: yText }}
-        className="relative z-10 text-center px-4 max-w-5xl mx-auto"
-      >
-        {/* Floating Logo Sanctuary */}
+      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-          className="mb-14"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="mb-6"
         >
-          <div className="inline-block relative">
-            <motion.div
-              animate={{ scale: [1, 1.05, 1], opacity: [0.2, 0.4, 0.2] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-              className="absolute -inset-10 bg-gold/10 rounded-full blur-3xl"
-            />
-            <div className="w-[7rem] h-[7rem] sm:w-[8.5rem] sm:h-[8.5rem] mx-auto relative rounded-2xl flex items-center justify-center p-7 border border-gold/10 backdrop-blur-md">
-              <Image
-                src="/image.png"
-                alt={SITE_NAME}
-                fill
-                priority
-                unoptimized
-                className="p-7 object-contain logo-gold-filter drop-shadow-lg"
-              />
+          <div className="inline-block">
+            <div className="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-gold to-gold-dark flex items-center justify-center shadow-2xl shadow-gold/30">
+              <span className="text-shrine-blue-dark text-3xl sm:text-4xl font-bold">ع</span>
             </div>
           </div>
         </motion.div>
@@ -81,58 +41,50 @@ export default function HeroSection() {
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.2 }}
-          className="text-[3.5rem] sm:text-[4.5rem] font-bold mb-10 gold-shimmer leading-[1.1] drop-shadow-sm"
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-3xl sm:text-5xl lg:text-6xl font-bold mb-4 gold-shimmer"
         >
-          {tc("site_name")}
+          {tSite("name")}
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.4 }}
-          className="text-gold-light/80 text-xl sm:text-[1.75rem] mb-8 font-light leading-tight max-w-2xl mx-auto italic"
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="text-gold-light/80 text-sm sm:text-lg lg:text-xl mb-4 font-light"
         >
-          {t("subtitle")}
+          {tSite("subtitle")}
         </motion.p>
 
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 2, delay: 0.6 }}
-          className="text-gray-400 text-lg sm:text-[1.125rem] mb-16 font-light max-w-3xl mx-auto leading-[1.8] uppercase"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="text-gray-400 text-base sm:text-xl lg:text-2xl mb-10 font-light"
         >
-          {t("desc")}
+          {t("cta")}
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.8 }}
-          className="flex flex-col sm:flex-row gap-10 justify-center"
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center"
         >
           <Link href="/donate">
-            <Button size="lg" className="px-16 shadow-gold-glow">
-              {t("cta_donate")}
-              <motion.span
-                animate={{ x: locale === "ar" ? -8 : 8 }}
-                transition={{ repeat: Infinity, duration: 2, repeatType: "reverse" }}
-                className="inline-block opacity-60"
-              >
-                {locale === "ar" ? "←" : "→"}
-              </motion.span>
+            <Button size="lg" className="text-lg px-10">
+              {t("donateBtn")}
             </Button>
           </Link>
           <Link href="/about">
-            <Button variant="outline" size="lg" className="px-16 backdrop-blur-md border-gold/20 text-gold-light hover:bg-gold/5 font-light">
-              {t("cta_about")}
+            <Button variant="outline" size="lg" className="text-lg px-10">
+              {t("aboutBtn")}
             </Button>
           </Link>
         </motion.div>
-      </motion.div>
+      </div>
 
-      {/* Fibonacci Extended Bottom Fade (Digital Cloud) */}
-      <div className="absolute bottom-0 left-0 right-0 hero-bottom-fade pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent" />
     </section>
   );
 }

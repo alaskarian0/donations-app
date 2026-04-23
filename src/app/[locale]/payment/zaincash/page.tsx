@@ -55,11 +55,7 @@ export default function ZainCashPage() {
         paymentMethod: "zaincash",
       });
 
-      dispatch({ type: "SET_DONATION_ID", payload: data.id });
-      dispatch({
-        type: "SET_PAYMENT_INFO",
-        payload: { paymentId: data.paymentId || '', status: "pending" },
-      });
+      dispatch({ type: "SET_PAYMENT_ID", payload: data.paymentId || data.id || '' });
 
       setTimeout(() => {
         router.push("/success");

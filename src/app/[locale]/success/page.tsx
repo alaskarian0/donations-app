@@ -7,7 +7,6 @@ import { useDonation } from "@/context/DonationContext";
 import { DONATION_TYPES, PAYMENT_METHODS } from "@/lib/constants";
 import { formatCurrency } from "@/lib/utils";
 import { getDonationByPaymentId } from "@/lib/api";
-import type { DonationState } from "@/lib/types";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import { useTranslations, useLocale } from "next-intl";
@@ -70,7 +69,6 @@ export default function SuccessPage() {
     getDonationByPaymentId(state.paymentId)
       .then((data) => {
         setBackendStatus(data.status);
-        dispatch({ type: "SET_STATUS", payload: data.status.toLowerCase() as DonationState["status"] });
       })
       .catch(() => {
         // Graceful fallback — still show success with local data

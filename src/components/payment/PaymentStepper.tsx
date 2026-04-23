@@ -1,12 +1,16 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 interface PaymentStepperProps {
   currentStep: number;
 }
 
-const steps = ["اختيار التبرع", "الدفع", "التأكيد"];
-
 export default function PaymentStepper({ currentStep }: PaymentStepperProps) {
+  const t = useTranslations("payment");
+  const steps = [t("step1Label"), t("step2Label"), t("step3Label")];
+
   return (
     <div className="flex items-center justify-center gap-2 sm:gap-4 mb-8">
       {steps.map((step, index) => {

@@ -10,7 +10,7 @@ const initialState: DonationState = {
   paymentMethod: null,
   donorName: "",
   donorPhone: "",
-  status: "idle",
+  paymentId: null,
 };
 
 function donationReducer(state: DonationState, action: DonationAction): DonationState {
@@ -31,16 +31,8 @@ function donationReducer(state: DonationState, action: DonationAction): Donation
       return { ...state, donorName: action.payload };
     case "SET_DONOR_PHONE":
       return { ...state, donorPhone: action.payload };
-    case "SET_PAYMENT_INFO":
-      return {
-        ...state,
-        paymentId: action.payload.paymentId,
-        status: action.payload.status,
-      };
-    case "SET_DONATION_ID":
-      return { ...state, donationId: action.payload };
-    case "SET_STATUS":
-      return { ...state, status: action.payload };
+    case "SET_PAYMENT_ID":
+      return { ...state, paymentId: action.payload };
     case "RESET":
       return initialState;
     default:

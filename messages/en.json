@@ -1,0 +1,171 @@
+{
+  "site": {
+    "name": "Al-Askari Holy Shrine",
+    "subtitle": "Shrine of Imam Ali al-Hadi and Imam Hasan al-Askari (Peace Be Upon Them)",
+    "location": "Samarra, Iraq",
+    "description": "Official donation platform for the Al-Askari Holy Shrine in Samarra"
+  },
+  "nav": {
+    "home": "Home",
+    "donate": "Donations",
+    "about": "About",
+    "donateNow": "Donate Now",
+    "openMenu": "Open Menu",
+    "closeMenu": "Close Menu"
+  },
+  "hero": {
+    "cta": "Contribute to serving the Holy Shrine",
+    "donateBtn": "Donate Now",
+    "aboutBtn": "About the Shrine"
+  },
+  "categories": {
+    "title": "Donation Categories",
+    "subtitle": "Choose the type of donation you would like to contribute to support the Holy Shrine's services"
+  },
+  "donationTypes": {
+    "sadaqah": {
+      "name": "Sadaqah",
+      "description": "Voluntary charity for the sake of Allah, for goodness and blessings"
+    },
+    "waqf": {
+      "name": "Waqf",
+      "description": "Permanent endowment to support the services of the Holy Shrine"
+    },
+    "orphan": {
+      "name": "Orphan Sponsorship",
+      "description": "Sponsoring and caring for orphans and providing their basic needs"
+    },
+    "feeding": {
+      "name": "Feeding Pilgrims",
+      "description": "Contributing to providing food for visitors of the Holy Shrine"
+    },
+    "reconstruction": {
+      "name": "Shrine Reconstruction",
+      "description": "Contributing to the reconstruction, maintenance and restoration of the Holy Shrine"
+    },
+    "general": {
+      "name": "General Services",
+      "description": "Supporting general services, educational and cultural programs"
+    }
+  },
+  "stats": {
+    "title": "Your Impact",
+    "subtitle": "Thanks to your generous contributions",
+    "donors": "Donors",
+    "meals": "Meals Served",
+    "orphans": "Orphans Sponsored",
+    "projects": "Reconstruction Projects"
+  },
+  "aboutPreview": {
+    "title": "About the Holy Shrine",
+    "p1": "The Shrine of Imams Ali al-Hadi and Hasan al-Askari (Peace Be Upon Them) in the city of Samarra is one of the holiest Islamic shrines in the world. The shrine is distinguished by its famous golden dome, which is a symbol of the holy city.",
+    "p2": "The Al-Askari Holy Shrine strives to provide the best services to visitors, including food, accommodation, and various educational and cultural programs.",
+    "readMore": "Read More About the Shrine"
+  },
+  "donate": {
+    "title": "Donate",
+    "subtitle": "Choose the donation type, amount, and payment method",
+    "step1": "Choose Donation Type",
+    "step2": "Select Amount",
+    "step3": "Choose Payment Method",
+    "customAmount": "Custom amount...",
+    "currency": "$",
+    "selectedAmount": "Selected amount:",
+    "continue": "Continue",
+    "walletPayment": "Pay via mobile wallet",
+    "cardPayment": "Pay with bank card"
+  },
+  "payment": {
+    "step1Label": "Select Donation",
+    "step2Label": "Payment",
+    "step3Label": "Confirmation",
+    "donationType": "Donation Type",
+    "amount": "Amount",
+    "noSelection": "No donation selected yet",
+    "backToDonate": "Back to Donate",
+    "back": "← Back to donation selection"
+  },
+  "zaincash": {
+    "title": "Pay via ZainCash",
+    "phone": "Phone Number",
+    "phonePlaceholder": "07XX XXX XXXX",
+    "phoneError": "Please enter a valid phone number",
+    "note": "Note:",
+    "noteText": "A confirmation message will be sent to your phone number to complete the payment.",
+    "confirm": "Confirm Payment"
+  },
+  "superqi": {
+    "title": "Pay with Bank Card",
+    "subtitle": "Mastercard - Qi Card",
+    "donorName": "Donor Name (optional)",
+    "donorNamePlaceholder": "Enter your name",
+    "donorPhone": "Phone Number (optional)",
+    "donorPhonePlaceholder": "07XX XXX XXXX",
+    "redirectNote": "You will be redirected to Qi Card's secure payment page to enter your card details.",
+    "secure": "Secure & Encrypted Payment",
+    "secureText": "We never store any card data. Your identity is verified through Qi Card's secure gateway.",
+    "proceed": "Proceed to Secure Payment"
+  },
+  "paymentReturn": {
+    "loading": "Verifying your payment...",
+    "loadingText": "Please wait",
+    "success": "Payment successful",
+    "failed": "Payment failed",
+    "failedText": "Your payment could not be processed. Please try again.",
+    "error": "An error occurred",
+    "errorText": "Unable to verify payment status. Please contact support.",
+    "retry": "Try Again"
+  },
+  "processing": {
+    "title": "Processing...",
+    "subtitle": "Please do not close this page"
+  },
+  "success": {
+    "title": "Thank You for Your Generous Donation",
+    "subtitle": "May Allah reward you abundantly",
+    "details": "Donation Details",
+    "reference": "Reference Number",
+    "donationType": "Donation Type",
+    "amount": "Amount",
+    "method": "Payment Method",
+    "date": "Date",
+    "donateAgain": "Donate Again",
+    "home": "Home",
+    "hadith": "Whoever gives charity shall have a reward equal to the one who acted upon it"
+  },
+  "about": {
+    "heroTitle": "About the Holy Shrine",
+    "historyTitle": "History of the Holy Shrine",
+    "historyP1": "The Shrine of Imams Ali al-Hadi and Hasan al-Askari (Peace Be Upon Them) is located in the holy city of Samarra, and is one of the holiest Islamic shrines in the world. The shrine houses the remains of the 10th Imam Ali al-Hadi and the 11th Imam Hasan al-Askari.",
+    "historyP2": "The shrine was built in 944 CE, and is distinguished by its famous golden dome, which was covered with 72,000 gold pieces in 1905, making it a prominent symbol of the holy city of Samarra and a global Islamic landmark.",
+    "historyP3": "The shrine also houses the tomb of Lady Hakima Khatun (sister of Imam Ali al-Hadi) and Lady Narjis Khatun (mother of Imam Muhammad al-Mahdi, may Allah hasten his reappearance).",
+    "reconstructionTitle": "Reconstruction",
+    "reconstructionP1": "The holy shrine was subjected to two terrorist bombings in 2006 and 2007, which destroyed the golden dome and two historic minarets. This heinous attack shook the feelings of Muslims around the world.",
+    "reconstructionP2": "Reconstruction efforts began in 2009 with support from the Iraqi government, UNESCO, the United Nations Development Programme, and the Committee for the Reconstruction of Holy Shrines, under the guidance of Grand Ayatollah Sayyid Ali al-Sistani.",
+    "reconstructionP3": "The golden dome and minarets were rebuilt in their full glory, and the Holy Shrine continues ongoing maintenance and development efforts to serve visitors.",
+    "servicesTitle": "Holy Shrine Services",
+    "services": {
+      "feeding": { "title": "Feeding Pilgrims", "desc": "Providing thousands of meals daily to visitors" },
+      "education": { "title": "Educational Programs", "desc": "Various educational, religious and cultural programs" },
+      "maintenance": { "title": "Maintenance & Reconstruction", "desc": "Continuous maintenance and development of shrine facilities" },
+      "orphans": { "title": "Orphan Care", "desc": "Sponsoring and caring for orphans and providing their needs" },
+      "broadcast": { "title": "Live Broadcast", "desc": "Live broadcasting of religious ceremonies and events" },
+      "health": { "title": "Health Services", "desc": "Providing health and medical services to visitors" }
+    },
+    "donationsTitle": "How Does Your Donation Help?",
+    "donationsText": "Your generous donations help sustain services for visitors including food, accommodation, and care, as well as the reconstruction and maintenance of the Holy Shrine, support for educational and cultural programs, and sponsorship of orphans and those in need.",
+    "donateNow": "Contribute Now"
+  },
+  "footer": {
+    "about": "Shrine of Imams Ali al-Hadi and Hasan al-Askari (Peace Be Upon Them) in the holy city of Samarra. We strive to serve visitors and reconstruct the Holy Shrine.",
+    "quickLinks": "Quick Links",
+    "contact": "Contact Us",
+    "copyright": "All Rights Reserved"
+  },
+  "language": {
+    "ar": "العربية",
+    "en": "English",
+    "fa": "فارسی",
+    "switch": "Change Language"
+  }
+}

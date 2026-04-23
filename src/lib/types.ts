@@ -1,6 +1,10 @@
 export type DonationType =
-  | "general"
+  | "sadaqah"
+  | "waqf"
+  | "orphan"
+  | "feeding"
   | "reconstruction"
+  | "general"
   | "mudhif"
   | "sacrifices"
   | "servants";
@@ -28,10 +32,7 @@ export interface DonationState {
   paymentMethod: PaymentMethod | null;
   donorName: string;
   donorPhone: string;
-  donationId?: string;
-  paymentId?: string;
-  transactionId?: string;
-  status: "idle" | "pending" | "success" | "failed";
+  paymentId: string | null;
 }
 
 export type DonationAction =
@@ -41,7 +42,5 @@ export type DonationAction =
   | { type: "SET_PAYMENT_METHOD"; payload: PaymentMethod }
   | { type: "SET_DONOR_NAME"; payload: string }
   | { type: "SET_DONOR_PHONE"; payload: string }
-  | { type: "SET_PAYMENT_INFO"; payload: { paymentId: string; status: DonationState["status"] } }
-  | { type: "SET_DONATION_ID"; payload: string }
-  | { type: "SET_STATUS"; payload: DonationState["status"] }
+  | { type: "SET_PAYMENT_ID"; payload: string }
   | { type: "RESET" };

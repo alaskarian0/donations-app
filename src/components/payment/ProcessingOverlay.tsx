@@ -1,8 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 export default function ProcessingOverlay() {
+  const t = useTranslations("processing");
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -10,7 +13,6 @@ export default function ProcessingOverlay() {
       className="fixed inset-0 bg-shrine-blue-dark/90 backdrop-blur-sm z-50 flex items-center justify-center"
     >
       <div className="text-center">
-        {/* Spinner */}
         <div className="relative w-20 h-20 mx-auto mb-6">
           <div className="absolute inset-0 rounded-full border-4 border-gold/20" />
           <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-gold animate-spin-slow" />
@@ -23,7 +25,7 @@ export default function ProcessingOverlay() {
           transition={{ delay: 0.3 }}
           className="text-gold text-xl font-bold mb-2"
         >
-          جاري المعالجة...
+          {t("title")}
         </motion.p>
         <motion.p
           initial={{ opacity: 0, y: 10 }}
@@ -31,7 +33,7 @@ export default function ProcessingOverlay() {
           transition={{ delay: 0.5 }}
           className="text-gray-400 text-sm"
         >
-          يرجى عدم إغلاق الصفحة
+          {t("subtitle")}
         </motion.p>
       </div>
     </motion.div>
