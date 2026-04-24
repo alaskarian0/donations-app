@@ -67,7 +67,6 @@ export default function AboutPreview() {
             </Link>
           </motion.div>
         </div>
-      </div>
     </section>
   );
 }

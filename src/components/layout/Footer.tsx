@@ -30,14 +30,14 @@ const SOCIAL = [
 ];
 
 const PAYMENT_PARTNERS = [
-  { name: "Mastercard", abbr: "MC" },
-  { name: "AsiaPay", abbr: "AP" },
-  { name: "QiCard", abbr: "QI" },
-  { name: "TASDID", abbr: "TS" },
-  { name: "Trade Bank of Iraq", abbr: "TBI" },
-  { name: "Zain Cash", abbr: "ZC" },
-  { name: "Digital Zain", abbr: "DZ" },
-  { name: "VISA", abbr: "VISA" },
+  { name: "Partner 1", logo: "https://imagedelivery.net/UoIvgody5iICfZMIUiEnfQ/312d166e-63b0-420e-1e61-102d1a71d100/public" },
+  { name: "Partner 2", logo: "https://imagedelivery.net/UoIvgody5iICfZMIUiEnfQ/f85b177e-e421-4fbf-33bb-354edadfce00/public" },
+  
+  { name: "Partner 3", logo: "https://imagedelivery.net/UoIvgody5iICfZMIUiEnfQ/4447d1a4-b5a3-4de5-9771-a32a00c98e00/public" },
+  { name: "Partner 4", logo: "https://imagedelivery.net/UoIvgody5iICfZMIUiEnfQ/a6532dff-12c2-4077-852c-7adbf9b7cb00/public" },
+  { name: "Partner 6", logo: "https://imagedelivery.net/UoIvgody5iICfZMIUiEnfQ/201f4f04-a796-4c17-7441-a8ae2af94800/public" },
+  { name: "Partner 7", logo: "https://imagedelivery.net/UoIvgody5iICfZMIUiEnfQ/243de9bf-a690-4f1f-dfc3-0f21f6b15d00/public" },
+  { name: "Partner 8", logo: "https://imagedelivery.net/UoIvgody5iICfZMIUiEnfQ/ba1e4925-7a47-4296-6900-de9fd8300100/public" },
 ];
 
 export default function Footer() {
@@ -60,54 +60,16 @@ export default function Footer() {
           <h3 className="text-center text-[#1a5c38] font-bold text-2xl mb-8">
             بالتعاون مع
           </h3>
-          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
-            {/* Mastercard */}
-            <div className="flex items-center gap-1">
-              <div className="w-8 h-8 rounded-full bg-red-500 opacity-80" />
-              <div className="w-8 h-8 rounded-full bg-orange-400 opacity-80 -ml-4" />
-            </div>
-            {/* AsiaPay */}
-            <span className="font-bold text-gray-700 text-lg tracking-tight">AsiaPay</span>
-            {/* QiCard */}
-            <div className="flex items-center gap-1">
-              <span className="font-bold text-gray-800 text-sm">QiCard</span>
-              <div className="w-5 h-5 rounded-full bg-green-600 flex items-center justify-center">
-                <span className="text-white text-xs font-bold">Q</span>
-              </div>
-              <span className="text-gray-600 text-xs">كي كارد</span>
-            </div>
-            {/* TASDID */}
-            <div className="flex items-center gap-1">
-              <div className="w-5 h-5 bg-green-700 rounded-sm flex items-center justify-center">
-                <span className="text-white text-xs font-bold">T</span>
-              </div>
-              <span className="font-bold text-gray-700">TASDID</span>
-              <span className="text-gray-500 text-sm">تسديد</span>
-            </div>
-            {/* Trade Bank */}
-            <div className="flex items-center gap-1">
-              <div className="w-6 h-6 rounded-full bg-gray-700 flex items-center justify-center">
-                <span className="text-white text-xs font-bold">T</span>
-              </div>
-              <span className="text-gray-600 text-xs">البنك التجاري العراقي</span>
-            </div>
-            {/* Zain Cash */}
-            <div className="flex items-center gap-1">
-              <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
-                <span className="text-white text-xs font-bold">z</span>
-              </div>
-              <span className="font-bold text-gray-700 italic">zain</span>
-              <span className="text-green-600 text-xs font-semibold">CASH</span>
-            </div>
-            {/* Digital Zain */}
-            <div className="flex items-center gap-1">
-              <div className="w-5 h-5 bg-gray-800 rounded-sm flex items-center justify-center">
-                <span className="text-white text-xs">D</span>
-              </div>
-              <span className="font-bold text-gray-800">ديجتال زون</span>
-            </div>
-            {/* VISA */}
-            <span className="font-black text-[#1a1f71] text-2xl tracking-wider italic">VISA</span>
+          <div className="grid grid-cols-4 md:flex md:flex-nowrap items-center justify-center gap-y-4 gap-x-0 md:gap-6 w-full max-w-[600px] md:max-w-none mx-auto">
+            {PAYMENT_PARTNERS.map((partner) => (
+              <img
+                key={partner.name}
+                src={partner.logo}
+                alt={partner.name}
+                loading="lazy"
+                className="relative h-5 sm:h-6 md:h-8 lg:h-9 w-full md:w-auto object-contain mx-auto grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-300"
+              />
+            ))}
           </div>
         </div>
       </div>

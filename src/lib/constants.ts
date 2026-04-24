@@ -29,12 +29,6 @@ export const DONATION_TYPES: DonationTypeInfo[] = [
     descriptionAr: "تطوير شبكات الكهرباء والمياه وأنظمة الصرف الصحي",
     icon: "Wrench",
   },
-  {
-    id: "landscaping",
-    nameAr: "الساحات والحدائق",
-    descriptionAr: "تطوير وتجميل الساحات الخارجية ومناطق استقبال الزوار",
-    icon: "Trees",
-  },
 ];
 
 export const PAYMENT_METHODS: PaymentMethodInfo[] = [

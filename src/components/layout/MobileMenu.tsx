@@ -46,7 +46,6 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
 
   const navLinks = [
     { label: t("home"), sectionId: null, href: "/" },
-    { label: t("about"), sectionId: "about", href: null },
     { label: t("donate"), sectionId: "donate", href: null },
   ];
 

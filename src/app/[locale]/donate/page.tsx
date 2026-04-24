@@ -2,15 +2,15 @@
 
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/i18n/routing";
-import { useEffect, Suspense } from "react";
-import { motion } from "framer-motion";
+import { useEffect, Suspense, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useDonation } from "@/context/DonationContext";
 import { DONATION_TYPES, PRESET_AMOUNTS, PAYMENT_METHODS } from "@/lib/constants";
-import { formatCurrency, cn } from "@/lib/utils";
-import Button from "@/components/ui/Button";
+import { formatCurrency, cn, formatPhoneNumber } from "@/lib/utils";
+import { createDonation } from "@/lib/api";
 import type { DonationType, PaymentMethod } from "@/lib/types";
 import { useLocale } from "next-intl";
-import { Star, Building2, Maximize2, Wrench, Trees, LucideIcon } from "lucide-react";
+import { Star, Building2, Maximize2, Wrench, Trees, LucideIcon, CheckCircle2, ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
 
 const ICON_MAP: Record<string, LucideIcon> = {
   Star, Building2, Maximize2, Wrench, Trees,
@@ -22,323 +22,407 @@ function DonateContent() {
   const locale = useLocale();
   const isAr = locale === "ar";
   const { state, dispatch } = useDonation();
+  const ArrowIcon = isAr ? ArrowLeft : ArrowRight;
+  const [phone, setPhone] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+  const [processing, setProcessing] = useState(false);
+  const [apiError, setApiError] = useState("");
+
+  const isZainCash = state.paymentMethod === "zaincash";
 
   useEffect(() => {
     const typeParam = searchParams.get("type") as DonationType | null;
     if (typeParam && DONATION_TYPES.find((t) => t.id === typeParam)) {
       dispatch({ type: "SET_DONATION_TYPE", payload: typeParam });
-      setTimeout(() => {
-        document.getElementById("step-amount")?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 300);
     }
   }, [searchParams, dispatch]);
 
+  const finalAmount = state.customAmount ? Number(state.customAmount) : state.amount ?? 0;
+
   const isComplete =
     state.donationType &&
-    (state.amount || state.customAmount) &&
-    state.paymentMethod;
+    finalAmount > 0 &&
+    state.paymentMethod &&
+    (!isZainCash || phone.replace(/\D/g, "").length >= 11);
 
-  const handleContinue = () => {
-    if (!isComplete) return;
-    router.push(`/payment/${state.paymentMethod}`);
+  const handleContinue = async () => {
+    if (!isComplete || processing) return;
+
+    if (isZainCash) {
+      const digits = phone.replace(/\D/g, "");
+      if (digits.length < 11) {
+        setPhoneError(isAr ? "يرجى إدخال رقم هاتف صحيح" : "Enter a valid phone number");
+        return;
+      }
+    }
+
+    setProcessing(true);
+    setApiError("");
+    dispatch({ type: "SET_DONOR_PHONE", payload: phone });
+
+    try {
+      const data = await createDonation({
+        type: state.donationType?.toUpperCase() || "",
+        amount: finalAmount,
+        donorName: "Guest",
+        donorPhone: phone,
+        paymentMethod: state.paymentMethod || "",
+      });
+
+      dispatch({ type: "SET_PAYMENT_ID", payload: data.paymentId || data.id || "" });
+      router.push("/success");
+    } catch {
+      setApiError(isAr ? "حدث خطأ أثناء الاتصال بالخادم. يرجى المحاولة لاحقاً." : "Server error. Please try again.");
+      setProcessing(false);
+    }
   };
 
-  const getDonationLabel = (id: string) => {
-    const found = DONATION_TYPES.find((t) => t.id === id);
-    return isAr ? found?.nameAr ?? id : id;
-  };
+  const activeType = DONATION_TYPES.find((t) => t.id === state.donationType);
+  const displayAmount = finalAmount;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gray-50 pt-8 pb-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto">
 
-      {/* ── Page header ── */}
-      <section
-        className="py-16 sm:py-20 px-4 text-center"
-        style={{ backgroundColor: "#e8f5ee" }}
-      >
-        <motion.h1
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="font-bold mb-3"
-          style={{ color: "#1a5c38", fontSize: "clamp(1.6rem, 4vw, 2.2rem)", lineHeight: 1.3 }}
-        >
-          {isAr ? "أبواب التبرع" : "Donation Gates"}
-        </motion.h1>
-        <motion.p
+        {/* Page title */}
+        <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.15 }}
-          className="text-gray-500 max-w-xl mx-auto"
-          style={{ fontSize: "0.9rem", lineHeight: 1.7 }}
+          transition={{ duration: 0.5 }}
+          className="mb-8"
         >
-          {isAr
-            ? "اختر نوع التبرع والمبلغ وطريقة الدفع لخدمة المرقد الشريف"
-            : "Choose donation type, amount, and payment method to serve the Holy Shrine"}
-        </motion.p>
-      </section>
+          <h1 className="font-bold text-2xl sm:text-3xl" style={{ color: "#1a5c38" }}>
+            {isAr ? "أبواب التبرع" : "Donation Gates"}
+          </h1>
+          <p className="text-gray-400 text-sm mt-1">
+            {isAr
+              ? "اختر نوع التبرع ثم حدد المبلغ وطريقة الدفع"
+              : "Choose donation type, then set amount and payment method"}
+          </p>
+        </motion.div>
 
-      <div className="max-w-5xl mx-auto px-4 py-14 sm:py-20 space-y-16 pb-36">
+        {/* Two-panel layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-6 items-start">
 
-        {/* ── Step 1: Donation Type ── */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-        >
-          <div className="flex items-center gap-4 mb-8">
-            <span
-              className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-base shrink-0"
-              style={{ backgroundColor: "#1a5c38" }}
-            >
-              {isAr ? "١" : "1"}
-            </span>
-            <h2 className="font-bold text-xl sm:text-2xl" style={{ color: "#1a5c38" }}>
-              {isAr ? "أبواب التبرع" : "Choose Donation Type"}
-            </h2>
-            <div className="flex-1 h-px bg-gray-100" />
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {DONATION_TYPES.map((type, index) => {
-              const Icon = ICON_MAP[type.icon] ?? Star;
-              const isSelected = state.donationType === type.id;
-              return (
-                <motion.button
-                  key={type.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: index * 0.07 }}
-                  onClick={() => dispatch({ type: "SET_DONATION_TYPE", payload: type.id })}
-                  className={cn(
-                    "group flex flex-col items-center text-center p-5 rounded-2xl border transition-all duration-300 cursor-pointer",
-                    isSelected
-                      ? "border-[#1a5c38] shadow-md"
-                      : "border-gray-100 bg-white hover:border-[#1a5c38]/30 hover:shadow-md"
-                  )}
-                  style={isSelected ? { backgroundColor: "#e8f5ee" } : {}}
-                >
-                  <div
-                    className="w-14 h-14 rounded-xl flex items-center justify-center mb-3 transition-colors duration-300"
-                    style={{
-                      backgroundColor: isSelected ? "#1a5c38" : "#e8f5ee",
-                    }}
+          {/* ── LEFT PANEL: Donation types ── */}
+          <motion.div
+            initial={{ opacity: 0, x: isAr ? 20 : -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden"
+          >
+            <div className="px-5 pt-5 pb-3 border-b border-gray-50">
+              <p className="font-bold text-sm" style={{ color: "#1a5c38" }}>
+                {isAr ? "نوع التبرع" : "Donation Type"}
+              </p>
+            </div>
+            <div className="p-3 space-y-1.5">
+              {DONATION_TYPES.map((type, index) => {
+                const Icon = ICON_MAP[type.icon] ?? Star;
+                const isSelected = state.donationType === type.id;
+                return (
+                  <motion.button
+                    key={type.id}
+                    initial={{ opacity: 0, x: isAr ? 10 : -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.35, delay: 0.15 + index * 0.06 }}
+                    onClick={() => dispatch({ type: "SET_DONATION_TYPE", payload: type.id })}
+                    className={cn(
+                      "w-full flex items-center gap-3.5 px-4 py-3.5 rounded-2xl text-start transition-all duration-250 cursor-pointer group",
+                      isSelected
+                        ? "shadow-sm"
+                        : "hover:bg-gray-50"
+                    )}
+                    style={isSelected ? { backgroundColor: "#e8f5ee" } : {}}
                   >
-                    <Icon
-                      className="w-7 h-7 transition-colors duration-300"
-                      style={{ color: isSelected ? "#ffffff" : "#1a5c38" }}
+                    <div
+                      className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors duration-250"
+                      style={{ backgroundColor: isSelected ? "#1a5c38" : "#f3f4f6" }}
+                    >
+                      <Icon
+                        className="w-5 h-5 transition-colors duration-250"
+                        style={{ color: isSelected ? "#ffffff" : "#9ca3af" }}
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p
+                        className="font-semibold text-sm leading-snug"
+                        style={{ color: isSelected ? "#1a5c38" : "#111827" }}
+                      >
+                        {isAr ? type.nameAr : type.id}
+                      </p>
+                      <p className="text-xs text-gray-400 mt-0.5 leading-4 truncate">
+                        {type.descriptionAr}
+                      </p>
+                    </div>
+                    {isSelected && (
+                      <CheckCircle2 className="w-4 h-4 shrink-0" style={{ color: "#1a5c38" }} />
+                    )}
+                  </motion.button>
+                );
+              })}
+            </div>
+          </motion.div>
+
+          {/* ── RIGHT PANEL: Amount + Payment + Continue ── */}
+          <motion.div
+            initial={{ opacity: 0, x: isAr ? -20 : 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="space-y-5"
+          >
+            {/* Amount card */}
+            <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
+              <p className="font-bold text-sm mb-5" style={{ color: "#1a5c38" }}>
+                {isAr ? "المبلغ" : "Amount"}
+              </p>
+
+              <div className="grid grid-cols-3 sm:grid-cols-5 gap-2.5 mb-5">
+                {PRESET_AMOUNTS.map((amount) => {
+                  const isSelected = state.amount === amount && !state.customAmount;
+                  return (
+                    <button
+                      key={amount}
+                      onClick={() => dispatch({ type: "SET_AMOUNT", payload: amount })}
+                      className={cn(
+                        "py-3 px-2 rounded-2xl border font-bold text-sm transition-all duration-250 cursor-pointer",
+                        isSelected
+                          ? "border-transparent text-white shadow-sm"
+                          : "border-gray-100 bg-gray-50 text-gray-600 hover:border-[#1a5c38]/30 hover:text-[#1a5c38] hover:bg-white"
+                      )}
+                      style={isSelected ? { backgroundColor: "#1a5c38" } : {}}
+                    >
+                      <span className="block text-sm font-bold">
+                        {amount.toLocaleString(isAr ? "ar-IQ" : "en-US")}
+                      </span>
+                      <span className="block text-xs opacity-70 mt-0.5">
+                        {isAr ? "د.ع" : "IQD"}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="relative">
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  placeholder={isAr ? "أو أدخل مبلغاً مخصصاً..." : "Or enter a custom amount..."}
+                  value={state.customAmount}
+                  onChange={(e) => {
+                    const val = e.target.value.replace(/[^\d]/g, "");
+                    dispatch({ type: "SET_CUSTOM_AMOUNT", payload: val });
+                  }}
+                  className={cn(
+                    "w-full rounded-2xl border border-gray-200 bg-gray-50 px-5 py-3.5 text-gray-800 focus:outline-none focus:border-[#1a5c38] transition-colors placeholder:text-gray-400 text-sm",
+                    isAr ? "text-right pr-5 pl-16" : "text-left pl-5 pr-16"
+                  )}
+                />
+                <span
+                  className={cn("absolute top-1/2 -translate-y-1/2 font-bold text-xs", isAr ? "left-5" : "right-5")}
+                  style={{ color: "#1a5c38" }}
+                >
+                  {isAr ? "د.ع" : "IQD"}
+                </span>
+              </div>
+            </div>
+
+            {/* Payment method card */}
+            <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
+              <p className="font-bold text-sm mb-5" style={{ color: "#1a5c38" }}>
+                {isAr ? "طريقة الدفع" : "Payment Method"}
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {PAYMENT_METHODS.map((method) => {
+                  const isSelected = state.paymentMethod === method.id;
+                  const isZain = method.id === "zaincash";
+                  return (
+                    <button
+                      key={method.id}
+                      onClick={() =>
+                        dispatch({ type: "SET_PAYMENT_METHOD", payload: method.id as PaymentMethod })
+                      }
+                      className={cn(
+                        "relative flex flex-col justify-between p-5 rounded-2xl border text-start transition-all duration-250 cursor-pointer overflow-hidden",
+                        isSelected
+                          ? "border-[#1a5c38] shadow-md"
+                          : "border-gray-100 bg-gray-50 hover:border-[#1a5c38]/30 hover:bg-white"
+                      )}
+                      style={{
+                        minHeight: "110px",
+                        background: isSelected
+                          ? isZain
+                            ? "linear-gradient(135deg, #e8f5ee 0%, #f0faf4 100%)"
+                            : "linear-gradient(135deg, #e8f5ee 0%, #f0faf4 100%)"
+                          : undefined,
+                      }}
+                    >
+                      {/* Card chip simulation */}
+                      <div className="flex items-center justify-between mb-3">
+                        <div
+                          className="w-8 h-6 rounded-sm opacity-60"
+                          style={{
+                            background: "linear-gradient(135deg, #d4af37, #f1d683)",
+                          }}
+                        />
+                        {isSelected && (
+                          <CheckCircle2 className="w-4 h-4" style={{ color: "#1a5c38" }} />
+                        )}
+                      </div>
+
+                      {/* Method name */}
+                      <p
+                        className="font-bold text-sm leading-snug mb-3"
+                        style={{ color: isSelected ? "#1a5c38" : "#111827" }}
+                      >
+                        {isAr ? method.nameAr : method.nameEn}
+                      </p>
+
+                      {/* Logos row */}
+                      <div className="flex items-center gap-2">
+                        {isZain ? (
+                          <img
+                            src="https://imagedelivery.net/UoIvgody5iICfZMIUiEnfQ/6eceb72f-af92-40f1-fc6b-ae122bfdec00/public"
+                            alt="ZainCash"
+                            className="h-5 w-auto object-contain"
+                          />
+                        ) : (
+                          <>
+                            <img
+                              src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/120px-Mastercard-logo.svg.png"
+                              alt="Mastercard"
+                              className="h-5 w-auto object-contain"
+                            />
+                            <img
+                              src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Visa_Inc._logo_%282021%E2%80%93present%29.svg/120px-Visa_Inc._logo_%282021%E2%80%93present%29.svg.png"
+                              alt="Visa"
+                              className="h-4 w-auto object-contain"
+                            />
+                            <img
+                              src="https://imagedelivery.net/UoIvgody5iICfZMIUiEnfQ/312d166e-63b0-420e-1e61-102d1a71d100/public"
+                              alt="QiCard"
+                              className="h-5 w-auto object-contain"
+                            />
+                          </>
+                        )}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* ZainCash phone input */}
+            <AnimatePresence>
+              {isZainCash && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6 overflow-hidden"
+                >
+                  <p className="font-bold text-sm mb-4" style={{ color: "#1a5c38" }}>
+                    {isAr ? "رقم هاتف زين كاش" : "ZainCash Phone Number"}
+                  </p>
+                  <div className="flex gap-3">
+                    <div className="flex items-center justify-center bg-gray-100 rounded-2xl px-4 text-gray-600 font-medium text-sm shrink-0" dir="ltr">
+                      +964
+                    </div>
+                    <input
+                      type="tel"
+                      inputMode="numeric"
+                      placeholder="07XX XXX XXXX"
+                      value={phone}
+                      onChange={(e) => {
+                        setPhone(formatPhoneNumber(e.target.value));
+                        setPhoneError("");
+                      }}
+                      className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-base focus:outline-none focus:border-[#1a5c38] transition-colors font-bold"
+                      dir="ltr"
                     />
                   </div>
-                  <div
-                    className="w-8 h-0.5 rounded-full mb-2 transition-opacity duration-300"
-                    style={{
-                      backgroundColor: "#1a5c38",
-                      opacity: isSelected ? 1 : 0.3,
-                    }}
-                  />
-                  <h3
-                    className="font-bold mb-1 text-sm"
-                    style={{ color: isSelected ? "#1a5c38" : "#222222", lineHeight: 1.4 }}
-                  >
-                    {isAr ? type.nameAr : type.id}
-                  </h3>
-                  <p className="text-xs" style={{ color: "#9ca3af", lineHeight: 1.5 }}>
-                    {isAr ? type.descriptionAr : type.descriptionAr}
-                  </p>
-                </motion.button>
-              );
-            })}
-          </div>
-        </motion.section>
-
-        {/* ── Step 2: Amount ── */}
-        <motion.section
-          id="step-amount"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-        >
-          <div className="flex items-center gap-4 mb-8">
-            <span
-              className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-base shrink-0"
-              style={{ backgroundColor: "#1a5c38" }}
-            >
-              {isAr ? "٢" : "2"}
-            </span>
-            <h2 className="font-bold text-xl sm:text-2xl" style={{ color: "#1a5c38" }}>
-              {isAr ? "حدد المبلغ" : "Set Amount"}
-            </h2>
-            <div className="flex-1 h-px bg-gray-100" />
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6">
-            {PRESET_AMOUNTS.map((amount) => {
-              const isSelected = state.amount === amount && !state.customAmount;
-              return (
-                <button
-                  key={amount}
-                  onClick={() => dispatch({ type: "SET_AMOUNT", payload: amount })}
-                  className={cn(
-                    "py-4 px-2 rounded-xl border font-bold transition-all duration-300 cursor-pointer",
-                    isSelected
-                      ? "text-white border-transparent shadow-md scale-105"
-                      : "border-gray-100 bg-white text-gray-600 hover:border-[#1a5c38]/30 hover:text-[#1a5c38]"
+                  {phoneError && (
+                    <p className="mt-2 text-xs text-red-500">{phoneError}</p>
                   )}
-                  style={isSelected ? { backgroundColor: "#1a5c38" } : {}}
-                >
-                  <span className="text-base font-bold block">
-                    {amount.toLocaleString(isAr ? "ar-IQ" : "en-US")}
-                  </span>
-                  <span className="text-xs opacity-70 mt-0.5 block">
-                    {isAr ? "د.ع" : "IQD"}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-
-          <div className="relative max-w-2xl mx-auto">
-            <input
-              type="text"
-              inputMode="numeric"
-              placeholder={isAr ? "أو أدخل مبلغاً آخر..." : "Or enter a custom amount..."}
-              value={state.customAmount}
-              onChange={(e) => {
-                const val = e.target.value.replace(/[^\d]/g, "");
-                dispatch({ type: "SET_CUSTOM_AMOUNT", payload: val });
-              }}
-              className={cn(
-                "w-full rounded-xl border border-gray-200 bg-gray-50 px-5 py-4 text-gray-800 focus:outline-none transition-all placeholder:text-gray-400",
-                isAr ? "text-right pr-5 pl-16" : "text-left pl-5 pr-16"
+                </motion.div>
               )}
-              style={{
-                fontFamily: "var(--font-arabic), sans-serif",
-                fontSize: "1rem",
-                lineHeight: 1.5,
-              }}
-              onFocus={(e) => (e.target.style.borderColor = "#1a5c38")}
-              onBlur={(e) => (e.target.style.borderColor = "#e5e7eb")}
-            />
-            <span
-              className={cn(
-                "absolute top-1/2 -translate-y-1/2 font-bold text-sm",
-                isAr ? "left-5" : "right-5"
-              )}
-              style={{ color: "#1a5c38" }}
-            >
-              {isAr ? "د.ع" : "IQD"}
-            </span>
-          </div>
-        </motion.section>
+            </AnimatePresence>
 
-        {/* ── Step 3: Payment Method ── */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-        >
-          <div className="flex items-center gap-4 mb-8">
-            <span
-              className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-base shrink-0"
-              style={{ backgroundColor: "#1a5c38" }}
-            >
-              {isAr ? "٣" : "3"}
-            </span>
-            <h2 className="font-bold text-xl sm:text-2xl" style={{ color: "#1a5c38" }}>
-              {isAr ? "اختر طريقة الدفع" : "Choose Payment Method"}
-            </h2>
-            <div className="flex-1 h-px bg-gray-100" />
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {PAYMENT_METHODS.map((method) => {
-              const isSelected = state.paymentMethod === method.id;
-              return (
-                <button
-                  key={method.id}
-                  onClick={() =>
-                    dispatch({ type: "SET_PAYMENT_METHOD", payload: method.id as PaymentMethod })
-                  }
-                  className={cn(
-                    "flex items-center gap-5 p-6 rounded-2xl border text-start transition-all duration-300 cursor-pointer",
-                    isSelected
-                      ? "border-[#1a5c38] shadow-md"
-                      : "border-gray-100 bg-white hover:border-[#1a5c38]/30 hover:shadow-sm"
-                  )}
-                  style={isSelected ? { backgroundColor: "#e8f5ee" } : {}}
-                >
-                  <div
-                    className="w-14 h-14 rounded-xl flex items-center justify-center text-white font-bold text-lg shrink-0"
-                    style={{ backgroundColor: method.brandColor }}
+            {/* Summary + Continue */}
+            <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
+              <AnimatePresence mode="wait">
+                {state.donationType && displayAmount > 0 && state.paymentMethod ? (
+                  <motion.div
+                    key="summary"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.3 }}
+                    className="flex items-center justify-between mb-5"
                   >
-                    {method.id === "zaincash" ? "Z" : "M"}
-                  </div>
-                  <div>
-                    <p className="font-bold text-sm" style={{ color: isSelected ? "#1a5c38" : "#222222", lineHeight: 1.4 }}>
-                      {isAr ? method.nameAr : method.nameEn}
-                    </p>
-                    <p className="text-xs mt-0.5" style={{ color: "#9ca3af", lineHeight: 1.4 }}>
-                      {method.id === "zaincash"
-                        ? isAr ? "محفظة إلكترونية" : "Electronic Wallet"
-                        : isAr ? "بطاقة مصرفية" : "Bank Card"}
-                    </p>
-                  </div>
-                  {isSelected && (
-                    <div className="ms-auto w-5 h-5 rounded-full flex items-center justify-center" style={{ backgroundColor: "#1a5c38" }}>
-                      <svg viewBox="0 0 24 24" fill="none" className="w-3 h-3" stroke="white" strokeWidth={3}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                      </svg>
+                    <div>
+                      <p className="text-xs text-gray-400 mb-0.5">
+                        {isAr ? "ملخص التبرع" : "Donation Summary"}
+                      </p>
+                      <p className="font-bold text-sm" style={{ color: "#1a5c38" }}>
+                        {isAr ? activeType?.nameAr : activeType?.id}
+                      </p>
                     </div>
-                  )}
-                </button>
-              );
-            })}
-          </div>
-        </motion.section>
-      </div>
+                    <div className="text-end">
+                      <p className="text-xs text-gray-400 mb-0.5">
+                        {isAr ? "المبلغ" : "Amount"}
+                      </p>
+                      <p className="font-bold text-base" style={{ color: "#1a5c38" }}>
+                        {formatCurrency(displayAmount, locale)}
+                      </p>
+                    </div>
+                  </motion.div>
+                ) : (
+                  <motion.p
+                    key="hint"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="text-xs text-gray-400 mb-5"
+                  >
+                    {isAr ? "أكمل الاختيارات أعلاه للمتابعة" : "Complete the selections above to continue"}
+                  </motion.p>
+                )}
+              </AnimatePresence>
 
-      {/* ── Sticky bottom bar ── */}
-      <div
-        className="fixed bottom-0 left-0 right-0 border-t border-gray-100 z-40 bg-white/95 backdrop-blur-md"
-      >
-        <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
-          <div className="flex-1 min-w-0">
-            {state.donationType && (
-              <motion.div
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="flex flex-col gap-0.5"
+              {apiError && (
+                <p className="text-xs text-red-500 mb-3 text-center">{apiError}</p>
+              )}
+
+              <button
+                disabled={!isComplete || processing}
+                onClick={handleContinue}
+                className={cn(
+                  "w-full flex items-center justify-center gap-2.5 py-4 rounded-2xl font-bold text-sm transition-all duration-300",
+                  isComplete && !processing
+                    ? "text-white hover:opacity-90 cursor-pointer shadow-sm"
+                    : "opacity-40 cursor-not-allowed text-white"
+                )}
+                style={{ backgroundColor: "#1a5c38" }}
               >
-                <span className="font-bold" style={{ color: "#1a5c38", fontSize: "0.85rem" }}>
-                  {getDonationLabel(state.donationType)}
-                </span>
-                <span style={{ color: "#9ca3af", fontSize: "0.75rem" }}>
-                  {state.amount
-                    ? formatCurrency(state.amount, locale)
-                    : state.customAmount
-                    ? formatCurrency(Number(state.customAmount), locale)
-                    : isAr ? "لم يُحدد المبلغ بعد" : "Amount not set"}
-                </span>
-              </motion.div>
-            )}
-          </div>
-          <button
-            disabled={!isComplete}
-            onClick={handleContinue}
-            className={cn(
-              "flex items-center gap-2 px-8 py-3 rounded-full font-bold text-sm transition-all duration-300",
-              isComplete
-                ? "text-white hover:opacity-90 cursor-pointer"
-                : "opacity-30 cursor-not-allowed text-white"
-            )}
-            style={{ backgroundColor: "#1a5c38" }}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
-              <path d="M4.5 3.75a3 3 0 0 0-3 3v.75h21v-.75a3 3 0 0 0-3-3h-15Z" />
-              <path fillRule="evenodd" d="M22.5 9.75h-21v7.5a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3v-7.5Zm-18 3.75a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1-.75-.75Zm.75 2.25a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Z" clipRule="evenodd" />
-            </svg>
-            {isAr ? "إتمام المساهمة" : "Finalize Contribution"}
-          </button>
+                {processing ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                      <path d="M4.5 3.75a3 3 0 0 0-3 3v.75h21v-.75a3 3 0 0 0-3-3h-15Z" />
+                      <path fillRule="evenodd" d="M22.5 9.75h-21v7.5a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3v-7.5Zm-18 3.75a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1-.75-.75Zm.75 2.25a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Z" clipRule="evenodd" />
+                    </svg>
+                    {isAr ? "إتمام المساهمة" : "Finalize Contribution"}
+                    <ArrowIcon className="w-4 h-4" />
+                  </>
+                )}
+              </button>
+            </div>
+
+          </motion.div>
         </div>
       </div>
     </div>
@@ -347,7 +431,7 @@ function DonateContent() {
 
 export default function DonatePage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-white" />}>
+    <Suspense fallback={<div className="min-h-screen bg-gray-50" />}>
       <DonateContent />
     </Suspense>
   );

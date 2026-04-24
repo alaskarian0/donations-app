@@ -47,7 +47,6 @@ export default function Navbar() {
 
   const navLinks = [
     { href: "/", label: t("home"), sectionId: null },
-    { href: `/#about`, label: t("about"), sectionId: "about" },
     { href: `/#donate`, label: t("donate"), sectionId: "donate" },
   ];
 
@@ -81,7 +80,7 @@ export default function Navbar() {
                 const isActive =
                   link.sectionId === null
                     ? cleanPath === "/"
-                    : false; // hash links are never "active" in the URL sense
+                    : false;
                 return link.sectionId ? (
                   <a
                     key={link.href}

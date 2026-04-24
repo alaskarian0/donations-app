@@ -10,7 +10,7 @@ export default function HeroSection() {
   const locale = useLocale();
 
   return (
-    <section className="w-full px-4 sm:px-6 lg:px-8 pb-0">
+    <section className="w-full px-4 sm:px-6 lg:px-8 pb-0 -mt-[72px] sm:-mt-[80px]">
       <div className="max-w-7xl mx-auto">
         <div className="relative w-full rounded-b-3xl overflow-hidden" style={{ height: "100dvh" }}>
           {/* Background image — Al-Askari Holy Shrine, Samarra */}
