@@ -130,7 +130,7 @@ function StoryCard({ story, index, isAr }: { story: Story; index: number; isAr: 
 
 export default function StoriesSection() {
   const locale = useLocale();
-  const isAr = locale === "ar";
+  const isAr = locale === "ar" || locale === "fa";
 
   return (
     <section className="py-16 sm:py-24 bg-white px-4">

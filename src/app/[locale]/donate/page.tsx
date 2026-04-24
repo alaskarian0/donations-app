@@ -20,7 +20,7 @@ function DonateContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const locale = useLocale();
-  const isAr = locale === "ar";
+  const isAr = locale === "ar" || locale === "fa";
   const { state, dispatch } = useDonation();
   const ArrowIcon = isAr ? ArrowLeft : ArrowRight;
   const [phone, setPhone] = useState("");

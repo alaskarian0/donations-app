@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 
 const LOCALES = [
   { code: "ar", label: "العربية", short: "ع" },
+  { code: "fa", label: "فارسی", short: "ف" },
   { code: "en", label: "English", short: "EN" },
 ];
 
@@ -25,9 +26,10 @@ export default function LanguageSwitcher() {
 
   const switchLocale = (newLocale: string) => {
     if (newLocale === locale) { setOpen(false); return; }
+    setOpen(false);
     startTransition(() => {
       document.cookie = `NEXT_LOCALE=${newLocale};path=/;max-age=${60 * 60 * 24 * 365}`;
-      window.location.reload();
+      window.location.href = '/';
     });
   };
 

@@ -58,7 +58,7 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} dir={locale === 'ar' ? 'rtl' : 'ltr'} className={`${arabicFont.variable} ${inter.variable} h-full antialiased`}>
+    <html lang={locale} dir={locale === 'ar' || locale === 'fa' ? 'rtl' : 'ltr'} className={`${arabicFont.variable} ${inter.variable} h-full antialiased`}>
       <head>
         <link rel="preconnect" href="https://alaskarian.net" crossOrigin="anonymous" />
       </head>

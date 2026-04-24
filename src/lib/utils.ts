@@ -44,7 +44,7 @@ export function getPresetAmounts(locale: string): { display: number; iqd: number
   const baseAmounts = [5000, 10000, 25000, 50000, 100000];
   const config = getCurrencyConfig(locale);
 
-  if (locale === "ar") {
+  if (locale === "ar" || locale === "fa") {
     return baseAmounts.map((a) => ({ display: a, iqd: a }));
   }
 

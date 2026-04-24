@@ -58,7 +58,7 @@ function AnimatedCounter({
       className="text-3xl sm:text-4xl lg:text-5xl font-bold tabular-nums"
       style={{ color: "#ffffff" }}
     >
-      {count.toLocaleString(locale === "ar" ? "ar-IQ" : "en-US")}
+      {count.toLocaleString(locale === "ar" ? "ar-IQ" : locale === "fa" ? "fa-IR" : "en-US")}
     </span>
   );
 }
