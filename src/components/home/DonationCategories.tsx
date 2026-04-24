@@ -6,9 +6,9 @@ import { useTranslations } from "next-intl";
 import {
   Star,
   Building2,
-  Maximize2,
-  Wrench,
-  Trees,
+  Home,
+  Heart,
+  Users,
   LucideIcon,
 } from "lucide-react";
 import { DONATION_TYPES } from "@/lib/constants";
@@ -16,9 +16,9 @@ import { DONATION_TYPES } from "@/lib/constants";
 const ICON_MAP: Record<string, LucideIcon> = {
   Star,
   Building2,
-  Maximize2,
-  Wrench,
-  Trees,
+  Home,
+  Heart,
+  Users,
 };
 
 export default function DonationCategories() {

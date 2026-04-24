@@ -43,7 +43,28 @@
     "aboutFund": "About the Shrine",
     "quickLinks": "Important Links",
     "contact": "Quick Contact",
-    "copyright": "All rights reserved"
+    "copyright": "All rights reserved",
+    "followUs": "Follow us on social media",
+    "partners": "In partnership with",
+    "email": "Email",
+    "phone": "Contact Us"
+  },
+
+  "stories": {
+    "featuredTitle": "Contributing to the Shrine's\nRestoration is an Irreplaceable Honor",
+    "featuredBody": "Among our people and families, we believe every believer deserves to see the Holy Shrine in its finest form — without money being a barrier. Every donor deserves to know their contribution is laying a stone in this great edifice. Giving is a right, because the shrine belongs to everyone.",
+    "story1Title": "Expansion of the Sacred Courtyard",
+    "story1Excerpt": "Sacred Courtyard Expansion Project",
+    "story1Detail1": "This phase includes expanding the sacred courtyard by an additional 2,000 square meters to accommodate larger numbers of visitors and pilgrims arriving from around the world.",
+    "story1Detail2": "The project includes developing access corridors and improving visitor services, while preserving the authentic architectural character of the Holy Shrine.",
+    "story2Title": "Golden Dome Reconstruction",
+    "story2Excerpt": "Dome Restoration & Reconstruction Project",
+    "story2Detail1": "The golden dome reconstruction project aims to restore its authentic splendor and brilliance, using the finest gold and heritage materials according to modern engineering standards.",
+    "story2Detail2": "The executing team includes elite engineers and craftsmen specializing in Islamic architectural heritage, ensuring the spiritual and historical identity of the shrine is preserved.",
+    "story3Title": "Infrastructure Development",
+    "story3Excerpt": "Services & Infrastructure Development Project",
+    "story3Detail1": "The project includes modernizing the electricity, lighting, and air conditioning systems across all parts of the shrine, along with upgrading water and sewage networks to serve millions of visitors annually.",
+    "story3Detail2": "It also involves building integrated service centers, parking facilities, and pedestrian walkways to provide a safe and comfortable visit experience befitting the stature of the Holy Shrine."
   },
 
   "features": {
@@ -74,44 +95,33 @@
 
   "donationTypes": {
     "general": {
-      "name": "General Support",
-      "description": "General support for all construction and development projects at the Holy Shrine"
+      "name": "General Expenses",
+      "description": "General allocation for all needs and construction projects at the Holy Shrine"
     },
     "reconstruction": {
-      "name": "Shrine Reconstruction",
-      "description": "Contributing to restoration and rebuilding projects of the Holy Shrine"
+      "name": "Reconstruction & Expansion",
+      "description": "Contributing to the reconstruction and expansion projects of the Holy Shrine"
     },
-    "expansion": {
-      "name": "Expansion Projects",
-      "description": "Expanding facilities and spaces to accommodate the growing number of visitors"
+    "mudhif": {
+      "name": "Mudhif (Guest House)",
+      "description": "Contributing to the visitors' guest house and providing meals"
     },
-    "infrastructure": {
-      "name": "Infrastructure",
-      "description": "Developing electrical, water, and sanitation networks"
+    "sacrifices": {
+      "name": "Sacrifices",
+      "description": "Contributing to the purchase of sacrificial animals for the sake of Allah"
     },
-    "landscaping": {
-      "name": "Grounds & Gardens",
-      "description": "Developing and beautifying outer courtyards and visitor reception areas"
+    "servants": {
+      "name": "Holy Shrine Servants",
+      "description": "Supporting and providing services for the servants of the Holy Shrine"
     }
   },
 
   "DonationTypes": {
-    "general": "General Expenses Allocation",
-    "general_desc": "General allocation for all Shrine construction needs and projects",
-    "reconstruction": "Reconstruction & Expansion Allocation",
-    "reconstruction_desc": "Contributing to the reconstruction and expansion projects of the Holy Shrine",
-    "expansion": "Expansion Projects",
-    "expansion_desc": "Expanding facilities and spaces for visitors",
-    "infrastructure": "Infrastructure",
-    "infrastructure_desc": "Developing electrical, water, and sanitation networks",
-    "landscaping": "Grounds & Gardens",
-    "landscaping_desc": "Developing and beautifying outer courtyards and visitor areas",
-    "mudhif": "Host (Mudhif) Allocation",
-    "mudhif_desc": "Contributing to the visitor's host and providing meals",
-    "sacrifices": "Sacrifices Purchase Allocation",
-    "sacrifices_desc": "Contributing to the purchase of sacrifices for the sake of Allah",
-    "servants": "Holy Shrine Servants Allocation",
-    "servants_desc": "Supporting and providing services for the servants of the Holy Shrine"
+    "general": "General Expenses",
+    "reconstruction": "Reconstruction & Expansion",
+    "mudhif": "Mudhif (Guest House)",
+    "sacrifices": "Sacrifices",
+    "servants": "Holy Shrine Servants"
   },
 
   "Categories": {

@@ -31,7 +31,7 @@ export default function Navbar() {
   const t = useTranslations("nav");
   const tSite = useTranslations("site");
 
-  const cleanPath = pathname.replace(/^\/(ar|en)/, "") || "/";
+  const cleanPath = pathname.replace(/^\/(ar|en|fa)/, "") || "/";
   const isHome = cleanPath === "/";
 
   // Scroll to a section on the home page, or navigate home first then scroll

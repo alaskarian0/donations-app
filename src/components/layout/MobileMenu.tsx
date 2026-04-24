@@ -30,7 +30,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
   const t = useTranslations("nav");
   const tSite = useTranslations("site");
 
-  const cleanPath = pathname.replace(/^\/(ar|en)/, "") || "/";
+  const cleanPath = pathname.replace(/^\/(ar|en|fa)/, "") || "/";
   const isHome = cleanPath === "/";
 
   const handleSectionLink = (sectionId: string) => {

@@ -29,7 +29,7 @@ export default function LanguageSwitcher() {
     setOpen(false);
     startTransition(() => {
       document.cookie = `NEXT_LOCALE=${newLocale};path=/;max-age=${60 * 60 * 24 * 365}`;
-      window.location.href = '/';
+      window.location.reload();
     });
   };
 

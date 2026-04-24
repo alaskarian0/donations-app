@@ -7,27 +7,33 @@ export const SITE_LOCATION = "سامراء، العراق";
 export const DONATION_TYPES: DonationTypeInfo[] = [
   {
     id: "general",
-    nameAr: "الدعم العام",
-    descriptionAr: "دعم عام لجميع مشاريع الإعمار والبناء في العتبة المقدسة",
+    nameAr: "مخصص صرف عام",
+    descriptionAr: "دعم عام لجميع مشاريع العتبة العسكرية المقدسة",
     icon: "Star",
   },
   {
     id: "reconstruction",
-    nameAr: "إعمار المرقد",
-    descriptionAr: "المساهمة في مشاريع ترميم وإعادة بناء المرقد الشريف",
+    nameAr: "مخصص اعمار وتوسعة",
+    descriptionAr: "المساهمة في مشاريع الإعمار والتوسعة في المرقد الشريف",
     icon: "Building2",
   },
   {
-    id: "expansion",
-    nameAr: "مشاريع التوسعة",
-    descriptionAr: "توسعة المرافق والفضاءات لاستيعاب أعداد الزوار المتزايدة",
-    icon: "Maximize2",
+    id: "mudhif",
+    nameAr: "مخصص المضيف",
+    descriptionAr: "دعم مضيف العتبة العسكرية المقدسة وخدماته",
+    icon: "Home",
   },
   {
-    id: "infrastructure",
-    nameAr: "البنية التحتية",
-    descriptionAr: "تطوير شبكات الكهرباء والمياه وأنظمة الصرف الصحي",
-    icon: "Wrench",
+    id: "sacrifices",
+    nameAr: "مخصص شراء ذبائح",
+    descriptionAr: "المساهمة في شراء الذبائح وتوزيعها على الزوار والمحتاجين",
+    icon: "Heart",
+  },
+  {
+    id: "servants",
+    nameAr: "مخصص خدام العتبة العسكرية المقدسة",
+    descriptionAr: "دعم خدام وموظفي العتبة العسكرية المقدسة",
+    icon: "Users",
   },
 ];
 

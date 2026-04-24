@@ -9,11 +9,11 @@ import { DONATION_TYPES, PRESET_AMOUNTS, PAYMENT_METHODS } from "@/lib/constants
 import { formatCurrency, cn, formatPhoneNumber } from "@/lib/utils";
 import { createDonation } from "@/lib/api";
 import type { DonationType, PaymentMethod } from "@/lib/types";
-import { useLocale } from "next-intl";
-import { Star, Building2, Maximize2, Wrench, Trees, LucideIcon, CheckCircle2, ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { Star, Building2, Home, Heart, Users, LucideIcon, CheckCircle2, ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
 
 const ICON_MAP: Record<string, LucideIcon> = {
-  Star, Building2, Maximize2, Wrench, Trees,
+  Star, Building2, Home, Heart, Users,
 };
 
 function DonateContent() {
@@ -22,6 +22,7 @@ function DonateContent() {
   const locale = useLocale();
   const isAr = locale === "ar" || locale === "fa";
   const { state, dispatch } = useDonation();
+  const tTypes = useTranslations("donationTypes");
   const ArrowIcon = isAr ? ArrowLeft : ArrowRight;
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState("");
@@ -149,10 +150,10 @@ function DonateContent() {
                         className="font-semibold text-sm leading-snug"
                         style={{ color: isSelected ? "#1a5c38" : "#111827" }}
                       >
-                        {isAr ? type.nameAr : type.id}
+                        {tTypes(`${type.id}.name`)}
                       </p>
                       <p className="text-xs text-gray-400 mt-0.5 leading-4 truncate">
-                        {type.descriptionAr}
+                        {tTypes(`${type.id}.description`)}
                       </p>
                     </div>
                     {isSelected && (
@@ -367,7 +368,7 @@ function DonateContent() {
                         {isAr ? "ملخص التبرع" : "Donation Summary"}
                       </p>
                       <p className="font-bold text-sm" style={{ color: "#1a5c38" }}>
-                        {isAr ? activeType?.nameAr : activeType?.id}
+                        {activeType ? tTypes(`${activeType.id}.name`) : ""}
                       </p>
                     </div>
                     <div className="text-end">

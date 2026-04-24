@@ -58,7 +58,7 @@ export default function Footer() {
       <div className="bg-white border-t border-gray-100 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h3 className="text-center text-[#1a5c38] font-bold text-2xl mb-8">
-            بالتعاون مع
+            {t("partners")}
           </h3>
           <div className="grid grid-cols-4 md:flex md:flex-nowrap items-center justify-center gap-y-4 gap-x-0 md:gap-6 w-full max-w-[600px] md:max-w-none mx-auto">
             {PAYMENT_PARTNERS.map((partner) => (
@@ -107,7 +107,7 @@ export default function Footer() {
               </p>
 
               {/* Social icons */}
-              <p className="text-gray-500 text-sm font-semibold mb-3">تابعنا على مواقعنا</p>
+              <p className="text-gray-500 text-sm font-semibold mb-3">{t("followUs")}</p>
               <div className="flex items-center gap-2">
                 {SOCIAL.map(({ label, href, path, strokeOnly, viewBox }) => (
                   <a
@@ -135,7 +135,7 @@ export default function Footer() {
 
             {/* Col 2 — Important Links */}
             <div>
-              <h4 className="text-[#1a5c38] font-bold text-base mb-6">الروابط المهمة</h4>
+              <h4 className="text-[#1a5c38] font-bold text-base mb-6">{t("quickLinks")}</h4>
               <ul className="space-y-3">
                 {quickLinks.map((link) => (
                   <li key={link.label}>
@@ -153,7 +153,7 @@ export default function Footer() {
 
             {/* Col 3 — Quick Contact */}
             <div>
-              <h4 className="text-[#1a5c38] font-bold text-base mb-6">الاتصال السريع</h4>
+              <h4 className="text-[#1a5c38] font-bold text-base mb-6">{t("contact")}</h4>
               <ul className="space-y-4">
                 <li>
                   <p className="text-xs text-gray-500 font-medium mb-1">{tSite("location")}</p>
@@ -163,7 +163,7 @@ export default function Footer() {
                   </div>
                 </li>
                 <li>
-                  <p className="text-xs text-gray-500 font-medium mb-1">البريد الإلكتروني</p>
+                  <p className="text-xs text-gray-500 font-medium mb-1">{t("email")}</p>
                   <div className="flex items-center gap-2">
                     <Mail className="w-4 h-4 text-[#1a5c38] shrink-0" />
                     <a href="mailto:info@alaskarian.net" className="text-sm text-gray-600 hover:text-[#1a5c38] transition-colors">
@@ -172,7 +172,7 @@ export default function Footer() {
                   </div>
                 </li>
                 <li>
-                  <p className="text-xs text-gray-500 font-medium mb-1">للاتصال بنا</p>
+                  <p className="text-xs text-gray-500 font-medium mb-1">{t("phone")}</p>
                   <div className="flex items-center gap-2">
                     <Phone className="w-4 h-4 text-[#1a5c38] shrink-0" />
                     <a href="tel:7374" className="text-sm text-gray-600 hover:text-[#1a5c38] transition-colors">
