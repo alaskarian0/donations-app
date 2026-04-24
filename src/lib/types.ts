@@ -1,10 +1,13 @@
 export type DonationType =
+  | "general"
+  | "reconstruction"
+  | "expansion"
+  | "infrastructure"
+  | "landscaping"
   | "sadaqah"
   | "waqf"
   | "orphan"
   | "feeding"
-  | "reconstruction"
-  | "general"
   | "mudhif"
   | "sacrifices"
   | "servants";

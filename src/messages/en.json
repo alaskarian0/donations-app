@@ -1,29 +1,111 @@
 {
   "Common": {
-    "site_name": "Al-Askari Holy Shrine",
-    "site_subtitle": "Shrine of Imams Ali al-Hadi and al-Hasan al-Askari (pbut)"
+    "site_name": "Al-Askari Holy Shrine"
   },
-  "Hero": {
-    "subtitle": "Shrine of Imams Ali al-Hadi and al-Hasan al-Askari (pbut)",
-    "location": "Samarra, Iraq",
-    "cta_donate": "Donate Now",
-    "cta_about": "About the Shrine",
-    "desc": "Contribute to the service of the Holy Shrine"
-  },
+
   "Nav": {
+    "donate": "Donors",
     "home": "Home",
-    "donate": "Donations",
-    "about": "About"
+    "about": "About",
+    "initiatives": "Initiatives",
+    "partners": "Partners",
+    "donateNow": "Contribute Now",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   },
-  "Categories": {
-    "title": "Donation Doors",
-    "subtitle": "Choose the type of donation you wish to contribute to support the Holy Shrine services"
+
+  "nav": {
+    "home": "Home",
+    "about": "About the Shrine",
+    "donate": "Donation Gates",
+    "initiatives": "Initiatives",
+    "partners": "Partners",
+    "donateNow": "Contribute Now",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   },
+
+  "site": {
+    "name": "Al-Askari Holy Shrine",
+    "subtitle": "Shrine of Imams Ali al-Hadi and al-Hasan al-Askari (pbut)",
+    "location": "Samarra, Iraq"
+  },
+
+  "hero": {
+    "badge": "Al-Askari Holy Shrine",
+    "donateBtn": "Contribute Now",
+    "aboutBtn": "About the Shrine",
+    "cta": "Contribute to the service of the Holy Shrine and support its construction and expansion projects"
+  },
+
+  "footer": {
+    "about": "Al-Askari Holy Shrine in Samarra, the shrine of Imams Ali al-Hadi and al-Hasan al-Askari (pbut). We strive to serve visitors and support construction, restoration, and expansion projects.",
+    "aboutFund": "About the Shrine",
+    "quickLinks": "Important Links",
+    "contact": "Quick Contact",
+    "copyright": "All rights reserved"
+  },
+
+  "features": {
+    "title": "Why Donate With Us",
+    "subtitle": "We ensure your donation fully reaches the service of the Holy Shrine",
+    "transparency": {
+      "title": "Full Transparency",
+      "desc": "Regular reports on how donations are spent in construction projects"
+    },
+    "quality": {
+      "title": "Quality Execution",
+      "desc": "We uphold the highest standards in construction and restoration"
+    },
+    "heritage": {
+      "title": "Islamic Heritage",
+      "desc": "Preserving a shrine of immense spiritual and historical significance"
+    },
+    "community": {
+      "title": "Strong Community",
+      "desc": "A wide network of dedicated donors serving the Holy Shrine"
+    }
+  },
+
+  "categories": {
+    "title": "Donation Categories",
+    "subtitle": "Choose the type of donation you wish to contribute to support construction and development projects"
+  },
+
+  "donationTypes": {
+    "general": {
+      "name": "General Support",
+      "description": "General support for all construction and development projects at the Holy Shrine"
+    },
+    "reconstruction": {
+      "name": "Shrine Reconstruction",
+      "description": "Contributing to restoration and rebuilding projects of the Holy Shrine"
+    },
+    "expansion": {
+      "name": "Expansion Projects",
+      "description": "Expanding facilities and spaces to accommodate the growing number of visitors"
+    },
+    "infrastructure": {
+      "name": "Infrastructure",
+      "description": "Developing electrical, water, and sanitation networks"
+    },
+    "landscaping": {
+      "name": "Grounds & Gardens",
+      "description": "Developing and beautifying outer courtyards and visitor reception areas"
+    }
+  },
+
   "DonationTypes": {
     "general": "General Expenses Allocation",
-    "general_desc": "General allocation for all Shrine needs and projects",
+    "general_desc": "General allocation for all Shrine construction needs and projects",
     "reconstruction": "Reconstruction & Expansion Allocation",
     "reconstruction_desc": "Contributing to the reconstruction and expansion projects of the Holy Shrine",
+    "expansion": "Expansion Projects",
+    "expansion_desc": "Expanding facilities and spaces for visitors",
+    "infrastructure": "Infrastructure",
+    "infrastructure_desc": "Developing electrical, water, and sanitation networks",
+    "landscaping": "Grounds & Gardens",
+    "landscaping_desc": "Developing and beautifying outer courtyards and visitor areas",
     "mudhif": "Host (Mudhif) Allocation",
     "mudhif_desc": "Contributing to the visitor's host and providing meals",
     "sacrifices": "Sacrifices Purchase Allocation",
@@ -31,12 +113,52 @@
     "servants": "Holy Shrine Servants Allocation",
     "servants_desc": "Supporting and providing services for the servants of the Holy Shrine"
   },
-  "Stats": {
-    "title": "Our Impact",
-    "subtitle": "Through your generous contributions, we fulfill our commitment to the Holy Shrine and its visitors",
-    "donors": "Donors",
-    "meals": "Meals Served",
-    "orphans": "Orphans Sponsored",
-    "projects": "Reconstruction Projects"
+
+  "Categories": {
+    "title": "Donation Categories",
+    "subtitle": "Choose the type of donation you wish to contribute to support the Holy Shrine services"
+  },
+
+  "stats": {
+    "title": "Impact of Your Donations",
+    "subtitle": "Through your generous contributions, we fulfil our commitment to the Holy Shrine and its visitors",
+    "projects": "Completed Projects",
+    "sqmeters": "m² Restored",
+    "donors": "Donors & Supporters",
+    "years": "Years of Service"
+  },
+
+  "aboutPreview": {
+    "title": "About Al-Askari Holy Shrine",
+    "p1": "Al-Askari Holy Shrine in Samarra is one of Islam's most revered shrines, housing the remains of Imams Ali al-Hadi and al-Hasan al-Askari (pbut), attracting millions of visitors annually.",
+    "p2": "We work tirelessly to preserve this noble Islamic heritage and develop construction, restoration, and expansion projects so the shrine reflects its sacred status in the hearts of believers.",
+    "readMore": "Learn More"
+  },
+
+  "payment": {
+    "step1Label": "Donation Type",
+    "step2Label": "Amount",
+    "step3Label": "Payment",
+    "backToDonate": "Back to Donate"
+  },
+
+  "processing": {
+    "title": "Processing Your Contribution",
+    "subtitle": "Please wait and do not close this page"
+  },
+
+  "paymentReturn": {
+    "loading": "Verifying",
+    "loadingText": "Please wait while we verify your contribution",
+    "success": "Contribution Successful",
+    "failed": "Contribution Failed",
+    "failedText": "An error occurred while processing your contribution. Please try again.",
+    "error": "Verification Error",
+    "errorText": "Unable to verify the transaction status. Please contact us.",
+    "retry": "Try Again"
+  },
+
+  "language": {
+    "switch": "عربي"
   }
 }

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Sans_Arabic, Inter } from "next/font/google";
+import { Tajawal, Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -9,10 +9,10 @@ import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 
-const arabicFont = IBM_Plex_Sans_Arabic({
+const arabicFont = Tajawal({
   variable: "--font-arabic",
   subsets: ["arabic"],
-  weight: ["100", "200", "300", "400", "500", "600", "700"],
+  weight: ["200", "300", "400", "500", "700", "800", "900"],
   display: "swap",
 });
 

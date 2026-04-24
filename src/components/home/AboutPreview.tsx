@@ -1,55 +1,68 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
+import { useLocale } from "next-intl";
 import Button from "@/components/ui/Button";
-import GoldenDivider from "@/components/ui/GoldenDivider";
+
+
+const BULLETS = [
+  { ar: "إعادة بناء القبة الذهبية والمئذنتين", en: "Rebuilding the Golden Dome and twin minarets" },
+  { ar: "توسعة الصحن الشريف وتطوير المداخل", en: "Expanding the sacred courtyard and entrances" },
+  { ar: "تحديث كامل للبنية التحتية والشبكات", en: "Full infrastructure and network modernization" },
+];
 
 export default function AboutPreview() {
   const t = useTranslations("aboutPreview");
+  const locale = useLocale();
+  const isRtl = locale === "ar" || locale === "fa";
+  const ArrowIcon = isRtl ? ArrowLeft : ArrowRight;
 
   return (
-    <section className="py-16 sm:py-24 px-4">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-          {/* Image placeholder */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="order-2 md:order-1"
-          >
-            <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-shrine-blue via-shrine-blue-dark to-shrine-green overflow-hidden relative">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-32 h-16 rounded-t-full bg-gradient-to-b from-gold to-gold-dark mx-auto" />
-                  <div className="w-40 h-24 bg-gradient-to-b from-shrine-blue-light to-shrine-blue mx-auto rounded-b-lg" />
-                  <div className="w-48 h-8 bg-gold/20 mx-auto mt-1" />
-                </div>
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-shrine-blue-dark/60 to-transparent" />
-            </div>
-          </motion.div>
-
+    <section id="about" className="py-16 sm:py-24 px-4 bg-white">
+      <div className="max-w-3xl mx-auto">
           {/* Text */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="order-1 md:order-2"
           >
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-shrine-blue-dark mb-6">
+            {/* Gold accent line */}
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-1 bg-[#1a5c38] rounded-full" />
+              <div className="w-4 h-1 bg-[#1a5c38]/40 rounded-full" />
+            </div>
+
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1a5c38] mb-5 leading-snug">
               {t("title")}
             </h2>
-            <GoldenDivider />
-            <p className="text-gray-600 leading-8 mb-4">{t("p1")}</p>
-            <p className="text-gray-600 leading-8 mb-8">{t("p2")}</p>
+
+            <p className="text-gray-500 leading-8 mb-4 text-sm sm:text-base">
+              {t("p1")}
+            </p>
+            <p className="text-gray-500 leading-8 mb-7 text-sm sm:text-base">
+              {t("p2")}
+            </p>
+
+            {/* Bullet list */}
+            <ul className="space-y-3 mb-8">
+              {BULLETS.map((b) => (
+                <li key={b.en} className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-[#1a5c38] shrink-0 mt-0.5" />
+                  <span className="text-gray-600 text-sm leading-6">
+                    {locale === "ar" ? b.ar : b.en}
+                  </span>
+                </li>
+              ))}
+            </ul>
+
             <Link href="/about">
-              <Button variant="secondary" size="md">
+              <Button variant="secondary" size="md" className="gap-2">
                 {t("readMore")}
+                <ArrowIcon className="w-4 h-4" />
               </Button>
             </Link>
           </motion.div>

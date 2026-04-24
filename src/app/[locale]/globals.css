@@ -1,23 +1,30 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* Obsidian & Gold Sanctuary Colors */
+  /* WHF-inspired Palette */
   --color-gold: #D4AF37;
   --color-gold-light: #F1D683;
   --color-gold-dark: #9C7A1A;
-  
-  --color-shrine-blue: #0C1D33;
-  --color-shrine-blue-dark: #050B14;
-  --color-shrine-blue-light: #1B3A5C;
 
-  /* Default Light Theme */
+  /* Warith Green — primary brand color */
+  --color-warith-green: #1a5c38;
+  --color-warith-green-dark: #14472b;
+  --color-warith-green-light: #e8f5ee;
+
+  /* WHF Deep Navy — kept for backward compat */
+  --color-shrine-blue: #0d2249;
+  --color-shrine-blue-dark: #081839;
+  --color-shrine-blue-light: #1A3D7D;
+
+  /* Light Body Theme */
   --color-background: #ffffff;
-  --color-foreground: #050B14;
-  --color-muted: rgba(5, 11, 20, 0.6);
-  --color-border: rgba(5, 11, 20, 0.1);
+  --color-surface: #ffffff;
+  --color-foreground: #222222;
+  --color-muted: #666666;
+  --color-border: #eeeeee;
   --font-arabic: var(--font-arabic);
 
-  /* Fibonacci Spacing Scale (Organic Harmony) */
+  /* Fibonacci Spacing */
   --spacing-fib-1: 1rem;
   --spacing-fib-2: 2rem;
   --spacing-fib-3: 3.25rem;
@@ -25,18 +32,7 @@
   --spacing-fib-8: 8.5rem;
   --spacing-fib-13: 13.5rem;
 
-  /* Breath-like Easing */
   --ease-breath: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Dark Theme Variant (The User's Color) */
-.theme-shrine-dark {
-  --color-background: #050B14;
-  --color-foreground: #ffffff;
-  --color-muted: rgba(255, 255, 255, 0.7);
-  --color-border: rgba(212, 175, 55, 0.1);
-  background-color: var(--color-background);
-  color: var(--color-foreground);
 }
 
 html, body, #__next, button, input, select, textarea {
@@ -49,26 +45,14 @@ body {
   font-size: 1rem;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  transition: background-color 0.8s var(--ease-breath), color 0.8s var(--ease-breath);
 }
 
-/* Typography Aesthetics (The Whisper) */
-h1 { font-size: 4.25rem; line-height: 1.1; font-weight: 700; color: var(--color-gold); }
-h2 { font-size: 2.625rem; line-height: 1.2; font-weight: 700; color: var(--color-gold); }
-h3 { font-size: 1.625rem; line-height: 1.3; font-weight: 600; color: var(--color-gold); }
-p  { font-size: 1.125rem; line-height: 1.7; font-weight: 300; color: var(--color-muted); }
+h1 { font-size: 4.25rem; line-height: 1.1; font-weight: 700; }
+h2 { font-size: 2.625rem; line-height: 1.2; font-weight: 700; }
+h3 { font-size: 1.625rem; line-height: 1.3; font-weight: 600; }
+p  { font-size: 1.125rem; line-height: 1.7; font-weight: 300; }
 
-/* Premium Gold Filter for Logo */
-.logo-gold-filter {
-  filter: brightness(0) saturate(100%) invert(84%) sepia(58%) saturate(452%) hue-rotate(357deg) brightness(89%) contrast(92%);
-  transition: filter 0.6s var(--ease-breath);
-}
-
-.logo-gold-filter:hover {
-  filter: brightness(0) saturate(100%) invert(95%) sepia(35%) saturate(543%) hue-rotate(345deg) brightness(101%) contrast(101%);
-}
-
-/* Gold Text Gradient */
+/* Gold Text Gradient — kept for shrine identity */
 .gold-shimmer {
   background: linear-gradient(to bottom, #F1D683, #D4AF37, #9C7A1A);
   -webkit-background-clip: text;
@@ -76,53 +60,45 @@ p  { font-size: 1.125rem; line-height: 1.7; font-weight: 300; color: var(--color
   background-clip: text;
 }
 
-/* Ambient Background */
+/* WHF card shadow */
+.card-shadow {
+  box-shadow: 0 5px 40px 0 rgb(9 29 62 / 10%);
+}
+.card-shadow-hover:hover {
+  box-shadow: 0 10px 60px 0 rgb(9 29 62 / 18%);
+}
+
+/* Blueprint / construction grid for dark sections */
+.geometric-bg {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Ambient navy gradient — used in old hero, kept for backward compat */
 .bg-ambient {
   background: radial-gradient(circle at top, var(--color-shrine-blue-light) 0%, var(--color-shrine-blue) 40%, var(--color-shrine-blue-dark) 100%);
 }
 
-/* Islamic Geometry Heartbeat */
-.geometry-heartbeat {
-  opacity: 0.02;
-  animation: heartbeat 12s var(--ease-breath) infinite;
-  will-change: opacity;
+/* Hero image overlay */
+.hero-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(8, 24, 57, 0.95) 0%,
+    rgba(8, 24, 57, 0.60) 50%,
+    rgba(8, 24, 57, 0.35) 100%
+  );
 }
 
-/* Islamic Geometric Pattern Background */
-.geometric-bg {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='none' stroke='%23D4AF37' stroke-width='0.3' opacity='0.4'%3E%3Cpolygon points='30,5 55,20 55,40 30,55 5,40 5,20'/%3E%3Cpolygon points='30,15 45,22 45,38 30,45 15,38 15,22'/%3E%3Cline x1='30' y1='5' x2='30' y2='15'/%3E%3Cline x1='55' y1='20' x2='45' y2='22'/%3E%3Cline x1='55' y1='40' x2='45' y2='38'/%3E%3Cline x1='30' y1='55' x2='30' y2='45'/%3E%3Cline x1='5' y1='40' x2='15' y2='38'/%3E%3Cline x1='5' y1='20' x2='15' y2='22'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 60px 60px;
+/* Glass card — light variant for light sections */
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(8, 24, 57, 0.08);
 }
 
-/* Holy Particles (Ambient light dots) */
-.holy-particles {
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle, rgba(212, 175, 55, 0.15) 1px, transparent 1px);
-  background-size: 40px 40px;
-  opacity: 0.3;
-  pointer-events: none;
-}
-
-@keyframes heartbeat {
-  0%, 100% { opacity: 0.015; }
-  50% { opacity: 0.04; }
-}
-
-/* Glassmorphism Sanctuary (Standardized Dark) */
-.glass-sanctuary {
-  background: rgba(5, 11, 20, 0.6);
-  backdrop-filter: blur(20px) saturate(150%);
-  -webkit-backdrop-filter: blur(20px) saturate(150%);
-  border: 1px solid rgba(212, 175, 55, 0.1);
-}
-
-/* Serenity Mode Dimming */
-.serenity-mode {
-  filter: brightness(0.85) contrast(0.95);
-}
-
-/* Metallic Shimmer (Softened) */
+/* Metallic shimmer for primary buttons */
 .metallic-shimmer {
   position: relative;
   overflow: hidden;
@@ -138,7 +114,7 @@ p  { font-size: 1.125rem; line-height: 1.7; font-weight: 300; color: var(--color
     45deg,
     transparent 0%,
     transparent 48%,
-    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.18) 50%,
     transparent 52%,
     transparent 100%
   );
@@ -146,34 +122,27 @@ p  { font-size: 1.125rem; line-height: 1.7; font-weight: 300; color: var(--color
   animation: shimmer-effect 10s var(--ease-breath) infinite;
   pointer-events: none;
 }
-
 @keyframes shimmer-effect {
   0% { transform: translateX(-100%) rotate(25deg); }
   20%, 100% { transform: translateX(100%) rotate(25deg); }
 }
 
-/* Hero Bottom Fade (Fibonacci Extended) */
-.hero-bottom-fade {
-  height: var(--spacing-fib-13);
-  background: linear-gradient(to top, var(--color-shrine-blue-dark), transparent);
+/* Section divider fade */
+.section-fade-bottom {
+  background: linear-gradient(to bottom, transparent, var(--color-background));
 }
 
-/* Custom scrollbar (Minimalist) */
-::-webkit-scrollbar {
-  width: 0.375rem;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 0.375rem; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: rgba(212, 175, 55, 0.3);
+  background: rgba(8, 24, 57, 0.25);
   border-radius: 1rem;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(212, 175, 55, 0.6);
+  background: rgba(8, 24, 57, 0.45);
 }
 
-/* Transitions: only on interactive elements to avoid global performance penalty */
 a, button, input, select, textarea, [role="button"] {
   transition-timing-function: var(--ease-breath);
 }

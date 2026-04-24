@@ -1,18 +1,16 @@
 "use client";
 
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 import { useState, useRef, useEffect, useTransition } from "react";
 import { cn } from "@/lib/utils";
 
 const LOCALES = [
-  { code: "ar", label: "العربية", flag: "🇮🇶" },
-  { code: "en", label: "English", flag: "🇬🇧" },
-  { code: "fa", label: "فارسی", flag: "🇮🇷" },
+  { code: "ar", label: "العربية", short: "ع" },
+  { code: "en", label: "English", short: "EN" },
 ];
 
 export default function LanguageSwitcher() {
   const locale = useLocale();
-  const t = useTranslations("language");
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -37,25 +35,40 @@ export default function LanguageSwitcher() {
 
   return (
     <div ref={ref} className="relative">
+      {/* Trigger: globe icon + 2-letter code */}
       <button
         onClick={() => setOpen(!open)}
         disabled={isPending}
+        aria-label="Switch language"
         className={cn(
-          "flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer",
-          "border border-gold/30 text-gold hover:bg-gold/10",
+          "flex items-center gap-1.5 px-2.5 py-2 rounded-full text-sm font-semibold transition-all duration-200 cursor-pointer border",
+          "border-gray-200 text-gray-600 hover:border-[#1a5c38] hover:text-[#1a5c38] hover:bg-[#1a5c38]/5",
           isPending && "opacity-50 cursor-wait"
         )}
-        title={t("switch")}
       >
-        <span className="text-base">{current.flag}</span>
-        <span>{current.label}</span>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className={cn("w-3 h-3 transition-transform", open && "rotate-180")}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+        {/* Globe icon */}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={1.75}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="w-4 h-4"
+        >
+          <circle cx="12" cy="12" r="10" />
+          <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
         </svg>
+        <span className="tracking-wide">{current.short}</span>
       </button>
 
+      {/* Dropdown */}
       {open && (
-        <div className="absolute top-full mt-2 bg-shrine-blue-dark border border-gold/20 rounded-xl shadow-xl overflow-hidden z-50 min-w-[140px] ltr:right-0 rtl:left-0">
+        <div
+          className="absolute top-full mt-2 bg-white border border-gray-100 rounded-2xl shadow-lg overflow-hidden z-50 min-w-[130px]"
+          style={{ insetInlineEnd: 0 }}
+        >
           {LOCALES.map((loc) => (
             <button
               key={loc.code}
@@ -63,12 +76,25 @@ export default function LanguageSwitcher() {
               className={cn(
                 "w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors cursor-pointer",
                 loc.code === locale
-                  ? "bg-gold/10 text-gold"
-                  : "text-gray-300 hover:bg-gold/5 hover:text-gold"
+                  ? "bg-[#1a5c38]/8 text-[#1a5c38] font-semibold"
+                  : "text-gray-700 hover:bg-gray-50 hover:text-[#1a5c38]"
               )}
             >
-              <span>{loc.flag}</span>
+              <span
+                className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0"
+                style={{
+                  backgroundColor: loc.code === locale ? "#1a5c38" : "#f3f4f6",
+                  color: loc.code === locale ? "#ffffff" : "#374151",
+                }}
+              >
+                {loc.short}
+              </span>
               <span>{loc.label}</span>
+              {loc.code === locale && (
+                <svg className="w-3.5 h-3.5 ms-auto text-[#1a5c38]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+              )}
             </button>
           ))}
         </div>

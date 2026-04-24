@@ -3,63 +3,80 @@
     "name": "Al-Askari Holy Shrine",
     "subtitle": "Shrine of Imam Ali al-Hadi and Imam Hasan al-Askari (Peace Be Upon Them)",
     "location": "Samarra, Iraq",
-    "description": "Official donation platform for the Al-Askari Holy Shrine in Samarra"
+    "description": "Official donation platform for the Al-Askari Holy Shrine reconstruction & development"
   },
   "nav": {
     "home": "Home",
-    "donate": "Donations",
+    "donate": "Donate",
     "about": "About",
     "donateNow": "Donate Now",
     "openMenu": "Open Menu",
     "closeMenu": "Close Menu"
   },
   "hero": {
-    "cta": "Contribute to serving the Holy Shrine",
+    "badge": "Construction & Reconstruction Projects",
+    "cta": "Contribute to preserving the architectural heritage of the Holy Shrine for future generations",
     "donateBtn": "Donate Now",
     "aboutBtn": "About the Shrine"
   },
+  "features": {
+    "title": "Why Support Construction Projects?",
+    "subtitle": "Your donation builds a legacy that endures across generations",
+    "transparency": {
+      "title": "Full Transparency",
+      "desc": "Detailed periodic reports on donation disbursements and project milestones"
+    },
+    "quality": {
+      "title": "World-Class Quality",
+      "desc": "Executed to the highest international engineering and architectural standards"
+    },
+    "heritage": {
+      "title": "Historic Heritage",
+      "desc": "Preserving an Islamic landmark over a thousand years old for future generations"
+    },
+    "community": {
+      "title": "Serving Millions",
+      "desc": "The Shrine welcomes millions of visitors annually from around the world"
+    }
+  },
   "categories": {
     "title": "Donation Categories",
-    "subtitle": "Choose the type of donation you would like to contribute to support the Holy Shrine's services"
+    "subtitle": "Choose your contribution type to support the Holy Shrine's reconstruction and development projects"
   },
   "donationTypes": {
-    "sadaqah": {
-      "name": "Sadaqah",
-      "description": "Voluntary charity for the sake of Allah, for goodness and blessings"
-    },
-    "waqf": {
-      "name": "Waqf",
-      "description": "Permanent endowment to support the services of the Holy Shrine"
-    },
-    "orphan": {
-      "name": "Orphan Sponsorship",
-      "description": "Sponsoring and caring for orphans and providing their basic needs"
-    },
-    "feeding": {
-      "name": "Feeding Pilgrims",
-      "description": "Contributing to providing food for visitors of the Holy Shrine"
+    "general": {
+      "name": "General Support",
+      "description": "General support for all construction and development projects at the Holy Shrine"
     },
     "reconstruction": {
       "name": "Shrine Reconstruction",
-      "description": "Contributing to the reconstruction, maintenance and restoration of the Holy Shrine"
+      "description": "Contributing to the restoration and rebuilding of the Holy Shrine"
     },
-    "general": {
-      "name": "General Services",
-      "description": "Supporting general services, educational and cultural programs"
+    "expansion": {
+      "name": "Expansion Projects",
+      "description": "Expanding facilities and spaces to accommodate growing numbers of visitors"
+    },
+    "infrastructure": {
+      "name": "Infrastructure",
+      "description": "Developing electrical, water, and sanitation networks and systems"
+    },
+    "landscaping": {
+      "name": "Courtyards & Gardens",
+      "description": "Developing and beautifying external courtyards and visitor reception areas"
     }
   },
   "stats": {
-    "title": "Your Impact",
-    "subtitle": "Thanks to your generous contributions",
-    "donors": "Donors",
-    "meals": "Meals Served",
-    "orphans": "Orphans Sponsored",
-    "projects": "Reconstruction Projects"
+    "title": "The Impact of Your Support",
+    "subtitle": "Through your generous contributions we continue developing and reconstructing the Holy Shrine",
+    "projects": "Completed Projects",
+    "sqmeters": "Sq. Meters Restored",
+    "donors": "Donors & Supporters",
+    "years": "Years of Service"
   },
   "aboutPreview": {
-    "title": "About the Holy Shrine",
-    "p1": "The Shrine of Imams Ali al-Hadi and Hasan al-Askari (Peace Be Upon Them) in the city of Samarra is one of the holiest Islamic shrines in the world. The shrine is distinguished by its famous golden dome, which is a symbol of the holy city.",
-    "p2": "The Al-Askari Holy Shrine strives to provide the best services to visitors, including food, accommodation, and various educational and cultural programs.",
+    "title": "A Journey of Reconstruction & Development",
+    "p1": "Since the rebuilding of the Golden Dome in 2009, the Al-Askari Holy Shrine has continued relentless reconstruction and development efforts. Dozens of major projects have been completed, transforming the Shrine into a world-class architectural landmark befitting its sacred status.",
+    "p2": "Our ongoing and planned projects include expanding the sacred courtyard, developing visitor reception areas, and constructing modern service facilities to accommodate the growing numbers of pilgrims from around the world.",
     "readMore": "Read More About the Shrine"
   },
   "donate": {
@@ -138,26 +155,26 @@
     "historyTitle": "History of the Holy Shrine",
     "historyP1": "The Shrine of Imams Ali al-Hadi and Hasan al-Askari (Peace Be Upon Them) is located in the holy city of Samarra, and is one of the holiest Islamic shrines in the world. The shrine houses the remains of the 10th Imam Ali al-Hadi and the 11th Imam Hasan al-Askari.",
     "historyP2": "The shrine was built in 944 CE, and is distinguished by its famous golden dome, which was covered with 72,000 gold pieces in 1905, making it a prominent symbol of the holy city of Samarra and a global Islamic landmark.",
-    "historyP3": "The shrine also houses the tomb of Lady Hakima Khatun (sister of Imam Ali al-Hadi) and Lady Narjis Khatun (mother of Imam Muhammad al-Mahdi, may Allah hasten his reappearance).",
+    "historyP3": "The shrine also houses the tomb of Lady Hakima Khatun (sister of Imam Ali al-Hadi) and Lady Narjis Khatun (mother of Imam Muhammad al-Mahdi).",
     "reconstructionTitle": "Reconstruction",
     "reconstructionP1": "The holy shrine was subjected to two terrorist bombings in 2006 and 2007, which destroyed the golden dome and two historic minarets. This heinous attack shook the feelings of Muslims around the world.",
-    "reconstructionP2": "Reconstruction efforts began in 2009 with support from the Iraqi government, UNESCO, the United Nations Development Programme, and the Committee for the Reconstruction of Holy Shrines, under the guidance of Grand Ayatollah Sayyid Ali al-Sistani.",
+    "reconstructionP2": "Reconstruction efforts began in 2009 with support from the Iraqi government, UNESCO, the United Nations Development Programme, under the guidance of Grand Ayatollah Sayyid Ali al-Sistani.",
     "reconstructionP3": "The golden dome and minarets were rebuilt in their full glory, and the Holy Shrine continues ongoing maintenance and development efforts to serve visitors.",
-    "servicesTitle": "Holy Shrine Services",
+    "servicesTitle": "Development Projects",
     "services": {
-      "feeding": { "title": "Feeding Pilgrims", "desc": "Providing thousands of meals daily to visitors" },
-      "education": { "title": "Educational Programs", "desc": "Various educational, religious and cultural programs" },
-      "maintenance": { "title": "Maintenance & Reconstruction", "desc": "Continuous maintenance and development of shrine facilities" },
-      "orphans": { "title": "Orphan Care", "desc": "Sponsoring and caring for orphans and providing their needs" },
-      "broadcast": { "title": "Live Broadcast", "desc": "Live broadcasting of religious ceremonies and events" },
-      "health": { "title": "Health Services", "desc": "Providing health and medical services to visitors" }
+      "feeding": { "title": "External Courtyards", "desc": "Development and beautification of courtyards surrounding the Shrine" },
+      "education": { "title": "Visitor Facilities", "desc": "Construction and development of service facilities for pilgrims" },
+      "maintenance": { "title": "Regular Maintenance", "desc": "Continuous and comprehensive maintenance of Shrine structures" },
+      "orphans": { "title": "Expansion Projects", "desc": "Expanding the sacred courtyard and main entrances" },
+      "broadcast": { "title": "Lighting & Electrical", "desc": "Developing a modern architectural lighting system" },
+      "health": { "title": "Infrastructure", "desc": "Developing service networks and comprehensive infrastructure" }
     },
     "donationsTitle": "How Does Your Donation Help?",
-    "donationsText": "Your generous donations help sustain services for visitors including food, accommodation, and care, as well as the reconstruction and maintenance of the Holy Shrine, support for educational and cultural programs, and sponsorship of orphans and those in need.",
+    "donationsText": "Your generous donations fund restoration, reconstruction and expansion projects, contribute to infrastructure modernization, develop courtyards and service facilities, and preserve the Islamic architectural heritage for future generations.",
     "donateNow": "Contribute Now"
   },
   "footer": {
-    "about": "Shrine of Imams Ali al-Hadi and Hasan al-Askari (Peace Be Upon Them) in the holy city of Samarra. We strive to serve visitors and reconstruct the Holy Shrine.",
+    "about": "Shrine of Imams Ali al-Hadi and Hasan al-Askari (Peace Be Upon Them) in the holy city of Samarra. We strive to reconstruct the Holy Shrine and develop its facilities to serve pilgrims.",
     "quickLinks": "Quick Links",
     "contact": "Contact Us",
     "copyright": "All Rights Reserved"
